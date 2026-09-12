@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="돌봄 시작 전 확인, 안전수칙, 현장 불발 보상과 재무 관리를 위한 통합 앱">
+  <title>돌봄 안심매칭</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="home.css">
+  <link rel="stylesheet" href="ward.css">
+  <link rel="stylesheet" href="association.css">
+  <link rel="stylesheet" href="official-logo.css">
+  <link rel="stylesheet" href="cloud-notice.css">
+  <link rel="stylesheet" href="terminology-notice.css">
+  <link rel="stylesheet" href="directions.css">
+  <link rel="stylesheet" href="directions-quick.css">
+  <link rel="stylesheet" href="contract-incident.css">
+  <link rel="stylesheet" href="building-highlight.css">
+  <link rel="stylesheet" href="matching-portal.css">
+  <link rel="stylesheet" href="service-contract.css">
+  <link rel="stylesheet" href="official-seal.css">
+  <link rel="stylesheet" href="request-contract.css">
+  <link rel="stylesheet" href="request-privacy-detail.css">
+  <link rel="stylesheet" href="request-ready-fix.css">
+  <link rel="stylesheet" href="fee-agreement.css">
+  <link rel="stylesheet" href="nurse-evaluation.css">
+  <link rel="stylesheet" href="mobile-evaluation-nav.css">
+  <link rel="stylesheet" href="blacklist-review.css">
+  <link rel="stylesheet" href="blacklist-panel.css">
+  <link rel="stylesheet" href="evaluation-access.css">
+  <link rel="stylesheet" href="evaluation-periods.css">
+  <link rel="stylesheet" href="evaluation-visuals.css">
+  <link rel="stylesheet" href="feedback-box.css">
+  <link rel="stylesheet" href="education-center.css">
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="brand care24-brand"><img class="care24-official-logo" src="https://play-lh.googleusercontent.com/aZpGCqpEE0Ex537bigWAhXfa2SJp3Cc4G3vBLkLSqu_uzV_eqkcPoWCq-a78r2UZTCDY=w256" alt="간병24 공식 앱 로고" referrerpolicy="no-referrer"><div><strong>병동 돌봄관리</strong><small>대한노인돌봄서비스협회</small></div></div>
+      <nav aria-label="주요 메뉴">
+        <button class="nav-item active" data-view="home"><span>01</span>홈</button>
+        <button class="nav-item" data-view="caregiver"><span>02</span>돌봄 시작 확인</button>
+        <button class="nav-item" data-view="guardian"><span>03</span>보호자 계약 확인</button>
+        <button class="nav-item" data-view="incident"><span>04</span>현장 불발 신고</button>
+        <button class="nav-item" data-view="nurseEvaluation"><span>05</span>돌봄인 평가</button>
+        <button class="nav-item" data-view="feedback"><span>06</span>고충·건의함</button>
+        <button class="nav-item" data-view="education"><span>07</span>전문인 교육</button>
+        <button class="nav-item" data-view="association"><span>08</span>협회 관리</button>
+        <button class="nav-item" data-view="finance"><span>09</span>재무 관리자</button>
+      </nav>
+      <div class="security-note"><span>●</span><div><strong>개인정보 보호 모드</strong><small>역할별 최소 정보만 표시됩니다.</small></div></div>
+    </aside>
+
+    <main>
+      <header class="topbar"><img class="care24-official-logo mobile-official-logo" src="https://play-lh.googleusercontent.com/aZpGCqpEE0Ex537bigWAhXfa2SJp3Cc4G3vBLkLSqu_uzV_eqkcPoWCq-a78r2UZTCDY=w256" alt="간병24 공식 앱 로고" referrerpolicy="no-referrer"><div><p class="eyebrow" id="sectionKicker">분당서울대학교병원</p><h1 id="sectionTitle">병동 돌봄관리</h1></div><div class="top-tools"><button id="maskToggle">환자정보 마스킹</button><button>보안센터</button><button class="notice-bell">알림 <i>3</i></button></div><div class="user"><span class="user-avatar">관</span><div><strong>협회 관리자</strong><small>보호접속 중</small></div></div></header>
+
+      <section id="home" class="view active">
+        <div class="ward-breadcrumb" id="wardBreadcrumb"><button data-level="buildings">병원</button><span>›</span><strong>동 선택</strong></div>
+        <a class="directions-quick" href="https://www.snubh.org/intro/map/road.do" target="_blank" rel="noopener"><span class="directions-pin">길</span><div><strong>분당서울대학교병원 찾아가는 길</strong><small>미금역·오리역·정자역 출구별 연계 버스 보기</small></div><b>교통안내 보기 ↗</b></a>
+        <div class="cloud-notice" role="note"><span class="cloud-icon">분리</span><div><strong>병원 클라우드와 분리하여 사용합니다</strong><p>간병24는 분당서울대학교병원 전산망·클라우드와 연결되지 않은 별도의 외부 관리 시스템입니다.</p></div><span class="cloud-status">독립 운영</span></div>
+        <section class="terminology-notice" aria-labelledby="terminologyTitle">
+          <header><span>용어 사용 공개 안내</span><h2 id="terminologyTitle">이 앱은 서비스 용어로 ‘돌봄’을 사용합니다</h2><p>환자와 가족이 업무의 성격을 쉽게 이해하고 존중받는 생활지원의 의미를 함께 담기 위한 선택입니다.</p></header>
+          <div class="terminology-compare">
+            <article><b>요양보호</b><strong>법령상 자격과 제도에 따른 명칭</strong><p>요양보호사는 「노인복지법」에 따른 자격을 갖추고 노인 등의 신체활동·가사활동 지원 업무를 수행합니다.</p></article>
+            <article><b>간병</b><strong>병원·가정 현장에서 널리 쓰이는 표현</strong><p>환자의 식사·위생·이동·안전 확인과 같은 일상생활 지원을 가리키는 현장·직업상 표현으로 사용됩니다.</p></article>
+            <article class="selected-term"><b>돌봄</b><strong>이 앱에서 사용하는 포괄적 서비스 용어</strong><p>두 영역에 공통되는 비의료적 생활지원과 존중·안전의 의미를 담아 ‘돌봄’으로 통일해 표시합니다.</p></article>
+          </div>
+          <div class="terminology-boundary"><strong>중요한 구분</strong><p>업무 일부가 비슷하더라도 요양보호사와 간병인은 자격, 적용 제도, 제공기관 및 계약관계가 서로 같다고 볼 수 없습니다. ‘돌봄’이라는 표현이 법정 자격명이나 업무 권한을 대신하지 않으며, 돌봄인은 진단·투약·주사·처치 등 의료행위를 할 수 없습니다.</p></div>
+          <footer><span>브랜드명 ‘간병24’와 법령·자격증·계약서에 필요한 공식 명칭은 원래 명칭을 유지합니다.</span><div><a href="https://www.law.go.kr/LSW/lsSideInfoP.do?docCls=jo&joBrNo=02&joNo=0039&lsiSeq=259093&urlMode=lsScJoRltInfoR" target="_blank" rel="noopener">노인복지법 제39조의2 ↗</a><a href="https://www.mohw.go.kr/menu.es?mid=a10709020900" target="_blank" rel="noopener">보건복지부 일상돌봄 안내 ↗</a></div></footer>
+        </section>
+        <div class="audience-gateway"><button class="guardian-entry" data-go="request"><span>환자·보호자</span><strong>돌봄인 의뢰하기</strong><small>필요한 기간과 돌봄 내용을 작성하세요.</small><b>의뢰 시작 →</b></button><button class="caregiver-entry" data-go="jobs"><span>돌봄인</span><strong>돌봄 의뢰 찾아보기</strong><small>개인정보와 금액을 제외한 의뢰만 확인합니다.</small><b>의뢰 보기 →</b></button></div>
+        <div id="buildingLevel" class="ward-level active">
+          <div class="ward-intro"><span class="tag mint">병동 위치 선택</span><h2>분당서울대학교병원</h2><p>동을 누르면 층별 병동이 표시됩니다.</p></div>
+          <div class="building-choice-title"><strong>병원 동을 선택하세요</strong><span>1동 또는 2동을 누르면 층별 병동이 열립니다.</span></div>
+          <div class="building-grid"><button class="building-card" data-building="1"><span class="building-number">1</span><div><small>분당서울대학교병원</small><strong>1동</strong><p>4층부터 13층까지 · 입원 병동</p></div><b>1동 병동 보기 →</b></button><button class="building-card second" data-building="2"><span class="building-number">2</span><div><small>분당서울대학교병원</small><strong>2동</strong><p>5층부터 11층까지 · 7개 층</p></div><b>2동 병동 보기 →</b></button></div>
+          <div class="service-links"><button data-go="request"><span>의뢰</span><div><strong>환자·보호자 돌봄 의뢰</strong><small>돌봄 조건 작성과 신청</small></div></button><button data-go="jobs"><span>근무</span><div><strong>돌봄인 의뢰 찾기</strong><small>익명 의뢰 확인과 관심 표시</small></div></button><button data-go="association"><span>관리</span><div><strong>대한노인돌봄서비스협회 관리</strong><small>계약·배정·교육 관리</small></div></button><button data-go="finance"><span>정산</span><div><strong>돌봄비 입금·정산</strong><small>수납과 돌봄인 지급 관리</small></div></button><button data-go="association"><span>수칙</span><div><strong>돌봄인 수칙</strong><small>감염예방·윤리·직무교육</small></div></button><button data-go="association"><span>병동</span><div><strong>간호사실</strong><small>병동 확인과 인계 알림</small></div></button></div>
+          <section class="hospital-directions"><div class="directions-head"><div><span>교통안내</span><h3>분당서울대학교병원 찾아가는 길</h3><p>경기도 성남시 분당구 구미로173번길 82</p></div><a href="https://www.snubh.org/intro/map/road.do" target="_blank" rel="noopener">병원 공식 교통안내 ↗</a></div><div class="transit-grid"><article><strong>미금역</strong><p><b>3번 출구</b> 마을 7·7-1번, 8446번</p><p><b>2번 출구</b> 51번</p><p><b>8번 출구</b> 마을 19번, 380번</p></article><article><strong>오리역</strong><p><b>7번 출구</b> 10m 앞 마을 19번</p><small>분당서울대학교병원 정류장 하차</small></article><article><strong>정자역</strong><p><b>3번 출구</b> 마을 19·111번, 380번, 8446번</p><small>분당서울대학교병원 정류장 하차</small></article></div></section>
+        </div>
+        <div id="floorLevel" class="ward-level"><div class="ward-section-head"><button class="back-button" data-back="buildings">← 동 선택</button><div><span id="floorBuildingLabel">1동</span><h2>층별 병동</h2><p>병동을 선택하면 해당 층의 병실이 표시됩니다.</p></div></div><div id="floorGrid" class="floor-grid"></div></div>
+        <div id="roomLevel" class="ward-level"><div class="ward-section-head"><button class="back-button" data-back="floors">← 층별 병동</button><div><span id="roomWardLabel">1동 · 8층</span><h2 id="roomWardTitle">82병동 병실</h2><p>병실을 눌러 4인실 환자와 돌봄 배정 상태를 확인하세요.</p></div></div><div id="roomGrid" class="room-grid"></div></div>
+        <div id="bedLevel" class="ward-level"><div class="ward-section-head"><button class="back-button" data-back="rooms">← 병실 목록</button><div><span id="bedRoomLabel">82병동</span><h2 id="bedRoomTitle">8212호</h2><p>침상을 선택하면 환자·돌봄 정보를 확인할 수 있습니다.</p></div></div><div class="room-layout"><div class="room-door">출입구</div><div id="bedGrid" class="bed-grid"></div><div class="room-center"><span>중앙 통로</span></div><div class="restroom">화장실</div></div><div id="bedDetail" class="bed-detail card"><p>침상을 선택해 주세요.</p></div></div>
+      </section>
+
+      <section id="request" class="view">
+        <div class="section-intro"><span class="tag mint">환자·보호자용</span><h2>돌봄인 의뢰하기</h2><p>돌봄 조건을 등록하면 민감정보를 제외한 의뢰가 돌봄인 목록에 표시되고, 가능한 돌봄인이 직접 신청합니다.</p></div>
+        <div class="request-steps"><article><i>1</i><strong>의뢰 작성</strong><span>병원·병동, 기간, 필요한 돌봄 입력</span></article><article><i>2</i><strong>의뢰계약 작성</strong><span>환자·보호자와 협회가 전자서명</span></article><article><i>3</i><strong>돌봄인 연결</strong><span>가능한 돌봄인이 직접 신청</span></article><article><i>4</i><strong>매칭 계약</strong><span>돌봄인과 협회가 계약 확인</span></article></div>
+        <div class="grid request-layout"><article class="card request-form"><h3>돌봄 의뢰 내용</h3><div class="form-row"><label>병원<input id="requestHospital" value="분당서울대학교병원"></label><label>동·병동<select id="requestWard"><option>1동 · 82병동</option><option>2동 · 72병동</option></select></label></div><div class="form-row"><label>돌봄 시작<input id="requestStart" type="datetime-local" value="2026-09-04T09:00"></label><label>돌봄 종료<input id="requestEnd" type="datetime-local" value="2026-09-10T19:00"></label></div><label>필요한 돌봄<select id="requestCare"><option>식사·이동·위생 도움</option><option>야간 돌봄 중심</option><option>수술 후 회복 도움</option><option>기타 상담 필요</option></select></label><label>상담 연락처 <small class="private-label">돌봄인에게 비공개</small><input id="requestContact" type="tel" placeholder="보호자 연락처"></label><label class="privacy-check"><input id="requestConsent" type="checkbox"><span>상담과 돌봄인 연결을 위한 개인정보 수집·이용에 동의합니다.</span></label></article>
+          <aside class="card promotion-guide"><span class="tag amber">이용 안내 홍보 방법</span><h3>환자·보호자에게 이렇게 알리세요</h3><ol><li><strong>병동 안내 시 QR 제공</strong><span>입원 안내문·간호사실·병상 안내판에 QR을 표시합니다.</span></li><li><strong>한 문장으로 설명</strong><span>“돌봄이 필요하면 간병24에서 기간과 돌봄 내용을 작성하세요.”</span></li><li><strong>작성 지원</strong><span>스마트폰 사용이 어려우면 협회 상담원이 전화로 접수를 돕습니다.</span></li><li><strong>접수 후 진행 안내</strong><span>의뢰계약 → 돌봄인 신청 → 매칭 계약 순서를 문자로 알립니다.</span></li></ol><div class="contact-callout"><small>대한노인돌봄서비스협회 상담</small><strong>1600-5197</strong></div></aside></div>
+        <article class="request-contract-document"><header><span class="tag navy">의뢰와 함께 작성</span><h2>돌봄 의뢰계약서</h2><p>환자 또는 보호자와 대한노인돌봄서비스협회가 돌봄인 모집·매칭을 의뢰하기 위해 체결합니다.</p></header><div class="request-contract-parties"><section><small>갑 · 의뢰인</small><label>의뢰인 구분<select id="requesterRole"><option>보호자</option><option>환자 본인</option></select></label><label>성명<input id="requesterName" placeholder="환자 또는 보호자 성명"></label></section><section><small>을 · 협회</small><strong>대한노인돌봄서비스협회</strong><p>서울특별시 강남구 강남대로 154길 39 동림빌딩 4층<br>전화 1600-5197 · 회장 황세옥</p></section></div><section class="request-contract-summary"><h3>의뢰 내용</h3><dl><div><dt>병원·병동</dt><dd id="requestContractPlace">분당서울대학교병원 · 1동 · 82병동</dd></div><div><dt>돌봄 기간</dt><dd id="requestContractPeriod">9월 4일 09:00 - 9월 10일 19:00</dd></div><div><dt>필요한 돌봄</dt><dd id="requestContractCare">식사·이동·위생 도움</dd></div></dl></section><section class="request-contract-terms"><h3>계약 조항</h3><ol><li><b>의뢰 목적</b> 의뢰인은 위 조건에 맞는 돌봄인의 모집과 매칭을 협회에 의뢰합니다.</li><li><b>정보 확인</b> 의뢰인은 환자 상태와 필요한 돌봄 내용을 사실에 맞게 제공하며 변경 시 즉시 알립니다.</li><li><b>비공개 원칙</b> 돌봄인 모집 단계에는 환자 신원, 연락처, 정확한 병실과 돌봄비를 공개하지 않습니다.</li><li><b>매칭과 계약</b> 돌봄인이 신청하면 협회가 자격과 일정을 확인하고, 확정 전 돌봄 조건과 비용을 의뢰인에게 안내합니다.</li><li><b>취소·변경</b> 의뢰 변경·취소와 현장 불발은 협회의 확인 절차 및 별도 고지된 기준을 따릅니다.</li><li><b>개인정보</b> 협회는 의뢰·상담·매칭·계약 이행에 필요한 범위에서만 개인정보를 처리합니다.</li><li><b>전자서명</b> 양 당사자는 모바일 또는 PC 전자서명이 계약 확인 의사임에 동의합니다.</li></ol></section><label class="contract-consent"><input id="requestContractAgree" type="checkbox"><span>돌봄 의뢰 내용과 계약 조항을 모두 확인하고 동의합니다.</span></label><section class="dual-signatures"><div class="contract-sign"><div class="sign-title"><strong>갑 · 환자/보호자 전자서명</strong><button type="button" data-clear-request-sign="requesterContractSign">다시 쓰기</button></div><canvas id="requesterContractSign" aria-label="환자 또는 보호자 전자서명 영역"></canvas><small id="requesterContractSignStatus">손가락이나 마우스로 서명해 주세요.</small></div><div class="contract-sign"><div class="sign-title"><strong>을 · 협회 전자서명</strong><button type="button" data-clear-request-sign="requestAssociationSign">다시 쓰기</button></div><canvas id="requestAssociationSign" aria-label="협회 담당자 전자서명 영역"></canvas><small id="requestAssociationSignStatus">협회 담당자가 서명해 주세요.</small><div class="chair-seal"><span>회장</span><strong>황세옥</strong><span class="official-seal-crop" role="img" aria-label="대한노인돌봄서비스협회 공식 직인"><img src="association-official-seal.png" alt=""></span></div></div></section><footer><div><strong>대한노인돌봄서비스협회</strong><span>회장 황세옥 (직인)</span></div><button class="primary" id="requestSubmit" disabled>의뢰계약서 저장 후 보내기</button></footer></article>
+        <p class="contract-draft-note">이 계약서는 전자 의뢰 운영을 위한 초안입니다. 실제 사용 전 관련 법령과 협회 운영기준에 따른 검토가 필요합니다.</p>
+      </section>
+
+      <section id="jobs" class="view">
+        <div class="section-intro"><span class="tag blue">돌봄인용</span><h2>돌봄 의뢰 찾아보기</h2><p>근무 가능한 익명 의뢰를 직접 확인하고 신청하세요. 민감정보는 배정 확정 전까지 공개하지 않습니다.</p></div>
+        <div class="privacy-banner"><strong>보호된 의뢰 정보</strong><span>환자 이름 · 연락처 · 정확한 병실 · 돌봄비 비공개</span><b>배정 확정 후 필요한 정보만 공개</b></div>
+        <div class="job-filters"><select aria-label="동 선택"><option>전체 동</option><option>1동</option><option>2동</option></select><select aria-label="근무 형태"><option>전체 기간</option><option>24시간 돌봄</option><option>주간 돌봄</option><option>야간 돌봄</option></select><button id="jobRefresh">의뢰 새로 보기</button></div>
+        <div class="job-list" id="jobList"></div>
+        <div class="job-process"><h3>돌봄인 신청·배정 절차</h3><span>① 익명 의뢰 확인</span><span>② 돌봄인이 직접 신청</span><span>③ 협회 자격·일정 확인</span><span>④ 배정 확정</span><span>⑤ 필요한 상세정보 확인</span></div>
+      </section>
+
+      <section id="serviceContract" class="view">
+        <div class="contract-page-head"><div><span class="tag navy">매칭 연동 계약</span><h2>돌봄 서비스 제공 계약서</h2><p>돌봄인 신청과 협회 확인이 끝난 매칭 건에 대해 작성합니다.</p></div><span class="contract-status">전자서명 대기</span></div>
+        <article class="contract-document">
+          <header><strong>대한노인돌봄서비스협회</strong><span>돌봄인과 협회 간 서비스 제공 계약</span></header>
+          <section class="contract-parties"><div><small>갑 · 협회</small><strong>대한노인돌봄서비스협회</strong><p>서울특별시 강남구 강남대로 154길 39 동림빌딩 4층<br>전화 1600-5197 · 회장 황세옥</p></div><div><small>을 · 돌봄인</small><label>성명<input id="caregiverContractName" placeholder="돌봄인 성명"></label><label>연락처<input id="caregiverContractPhone" type="tel" placeholder="돌봄인 연락처"></label></div></section>
+          <section class="matched-contract"><h3>매칭된 돌봄 업무</h3><dl><div><dt>의뢰번호</dt><dd id="contractJobId">선택된 의뢰</dd></div><div><dt>근무 장소</dt><dd id="contractJobPlace">분당서울대학교병원 · 병동</dd></div><div><dt>제공 기간</dt><dd id="contractJobPeriod">매칭 기간</dd></div><div><dt>주요 돌봄</dt><dd id="contractJobCare">매칭된 돌봄 내용</dd></div><div><dt>계약 상태</dt><dd>돌봄인 신청 · 협회 확인 대기</dd></div></dl></section>
+          <section class="introduction-fee-agreement"><span>소개요금 약정</span><h3>국내 유료직업소개요금 안내 및 납부약정</h3><p>회사는 고용노동부 고시 제2017-22호(국내유료직업소개요금 등 고시)를 준수하여 정한 <strong>소개요금</strong>을 아래와 같이 알려드리며, 돌봄서비스제공자는 <strong>소개요금을 회사에 납부약정함에 동의</strong>하며, 본 계약서로 직업안정법 시행규칙 별지 제20호서식(소개요금약정서)의 구직자 란에 서명한 것으로 갈음함에 동의함</p><div><small>소개요금 산정 기준</small><strong>소개요금 = 돌봄서비스제공비의 4%</strong></div></section>
+          <section class="contract-terms"><h3>계약 조항</h3><ol><li><b>업무 범위</b> 돌봄인은 매칭된 기간과 장소에서 식사·이동·위생 등 합의된 비의료 돌봄을 제공합니다.</li><li><b>의료행위 금지</b> 투약·주사·처치 등 의료인만 수행할 수 있는 행위를 하지 않으며 병동 지시와 안전수칙을 따릅니다.</li><li><b>근무와 보고</b> 정해진 근무시간을 준수하고 환자 상태 변화나 사고 발생 시 병동과 협회에 즉시 알립니다.</li><li><b>정산</b> 돌봄비와 지급 조건은 매칭 확정 후 별도 정산내역에서 확인하며 협회 기준에 따라 지급합니다.</li><li><b>개인정보 보호</b> 업무 중 알게 된 환자·보호자 정보를 계약 목적 외로 이용하거나 제3자에게 공개하지 않습니다.</li><li><b>취소·불발</b> 변경·취소 또는 현장 불발 시 앱에 신고하고 협회의 확인 및 계약상 보상 기준을 따릅니다.</li><li><b>계약 종료</b> 계약 위반, 환자 안전 우려 또는 당사자 합의가 있는 경우 협회 절차에 따라 계약을 종료할 수 있습니다.</li><li><b>전자서명</b> 양 당사자는 모바일 또는 PC에서 한 전자서명이 본 계약 확인 의사임에 동의합니다.</li></ol></section>
+          <label class="contract-consent"><input id="serviceContractAgree" type="checkbox"><span>계약 내용과 매칭 정보, 소개요금 및 납부약정을 모두 확인했으며 전자서명에 동의합니다.</span></label>
+          <section class="dual-signatures"><div class="contract-sign"><div class="sign-title"><strong>을 · 돌봄인 전자서명</strong><button type="button" data-clear-contract-sign="caregiverContractSign">다시 쓰기</button></div><canvas id="caregiverContractSign" aria-label="돌봄인 전자서명 영역"></canvas><small id="caregiverContractSignStatus">손가락이나 마우스로 서명해 주세요.</small></div><div class="contract-sign"><div class="sign-title"><strong>갑 · 협회 전자서명</strong><button type="button" data-clear-contract-sign="associationContractSign">다시 쓰기</button></div><canvas id="associationContractSign" aria-label="협회 담당자 전자서명 영역"></canvas><small id="associationContractSignStatus">협회 담당자가 서명해 주세요.</small><div class="chair-seal"><span>회장</span><strong>황세옥</strong><span class="official-seal-crop" role="img" aria-label="대한노인돌봄서비스협회 공식 직인"><img src="association-official-seal.png" alt=""></span></div></div></section>
+          <footer><div><strong>대한노인돌봄서비스협회</strong><span>회장 황세옥 (직인)</span></div><button id="completeServiceContract" disabled>제공계약서 저장 후 보내기</button></footer>
+        </article>
+        <p class="contract-draft-note">이 화면은 전자계약 운영을 위한 계약서 초안입니다. 실제 사용 전 관련 법령과 협회 운영기준에 따른 검토가 필요합니다.</p>
+      </section>
+
+      <section id="caregiver" class="view">
+        <div class="progress-wrap"><div class="progress-head"><strong>시작 준비</strong><span id="progressText">2 / 4 단계</span></div><div class="stepper"><div class="step done"><i>✓</i><span>매칭 확정</span></div><div class="line done"></div><div class="step current"><i>2</i><span>환자 확인</span></div><div class="line"></div><div class="step"><i>3</i><span>안전수칙</span></div><div class="line"></div><div class="step"><i>4</i><span>돌봄 시작</span></div></div></div>
+        <div class="grid primary-grid">
+          <article class="card patient-card">
+            <div class="card-head"><div><span class="tag blue">담당 환자</span><h2>내가 맡은 환자가 맞는지<br>확인해 주세요</h2></div><span class="match-badge">매칭 확정</span></div>
+            <div class="patient-profile"><div class="patient-avatar">홍</div><div><h3>홍*동 <small>남 · 70대</small></h3><p>82병동 · 8212호 · 2번 침상</p></div></div>
+            <dl class="info-grid"><div><dt>돌봄 시작 예정</dt><dd>오늘 오후 2:00</dd></div><div><dt>보호자</dt><dd>홍*수 (자녀)</dd></div><div><dt>담당 간호사</dt><dd><span class="status-dot"></span> 확인 완료</dd></div><div><dt>매칭번호</dt><dd>SN-260904-023</dd></div></dl>
+            <div class="verify-box"><div class="qr"><span></span><span></span><span></span><span></span></div><div><strong>병실 QR 확인 완료</strong><p>성명과 생년월일, 서로 다른 2개 정보가 일치합니다.</p></div></div>
+            <label class="consent main-consent"><input id="patientCheck" type="checkbox"><span>환자 팔찌 또는 병동 안내 정보와 앱의 환자 정보를 대조했으며, 담당 환자가 맞음을 확인했습니다.</span></label>
+            <button class="text-alert" id="mismatchBtn">환자가 다르거나 확인할 수 없어요 <b>간호사 호출 →</b></button>
+          </article>
+
+          <article class="card safety-card">
+            <div class="card-head"><div><span class="tag mint">안전 확인</span><h2>시작 전 안전수칙</h2></div><span class="check-count" id="checkCount">0 / 8</span></div>
+            <div id="safetyList" class="check-list">
+              <label><input type="checkbox"><span><b>손 위생 완료</b><small>손 씻기 또는 손 소독을 완료했습니다.</small></span></label>
+              <label><input type="checkbox"><span><b>마스크 착용</b><small>코와 입을 완전히 가렸습니다.</small></span></label>
+              <label><input type="checkbox"><span><b>보호구 착용</b><small>병동에서 요구한 가운·장갑을 착용했습니다.</small></span></label>
+              <label><input type="checkbox"><span><b>간병24 작업복 착용</b><small>간병24 작업복 상의·하의와 앞치마를 모두 착용했습니다.</small></span></label>
+              <label><input type="checkbox"><span><b>환자 주의사항 확인</b><small>낙상·욕창·흡인·감염 주의사항을 확인했습니다.</small></span></label>
+              <label><input type="checkbox"><span><b>의료행위 금지 확인</b><small>투약·주사 등 의료인만 가능한 행위는 하지 않습니다.</small></span></label>
+              <label><input type="checkbox"><span><b>상태 변화 즉시 보고</b><small>응급상황은 담당 간호사에게 바로 알립니다.</small></span></label>
+              <label><input type="checkbox"><span><b>개인정보 보호</b><small>환자 정보와 대화를 외부에 공유하지 않습니다.</small></span></label>
+            </div>
+          </article>
+        </div>
+        <div class="action-bar" style="display:none"><div><strong id="actionMessage">환자 확인과 안전수칙 8개를 완료해 주세요.</strong><small>필수 확인 전에는 시작할 수 없습니다.</small></div><button id="startCare" disabled>돌봄 시작</button></div>
+      </section>
+
+      <section id="guardian" class="view">
+        <div class="section-intro"><span class="tag amber">계약 전 필수</span><h2>보호자 계약 확인</h2><p>대한노인돌봄서비스협회와 환자 또는 보호자가 체결할 돌봄서비스 계약 내용을 확인합니다.</p></div>
+        <div class="grid form-grid"><article class="card"><h3>계약 당사자 및 서비스 내용</h3><dl class="contract-summary"><div><dt>서비스 제공·관리</dt><dd>대한노인돌봄서비스협회(중앙회)</dd></div><div><dt>계약자</dt><dd>환자 또는 보호자</dd></div><div><dt>대상 환자</dt><dd>홍*동 · 분당서울대학교병원 1동 8층 8212호</dd></div><div><dt>돌봄 기간</dt><dd><span class="care-time-inputs"><label>시작 일시<input id="careStart" type="datetime-local" value="2026-09-04T09:00"></label><b>–</b><label>종료 일시<input id="careEnd" type="datetime-local" value="2026-09-10T19:00"></label></span><small id="careTimeDisplay">09:00 - 19:00 · 총 6일 10시간 (154시간)</small></dd></div><div><dt>24시간 돌봄비</dt><dd><label class="daily-rate"><input id="careDailyRate" type="number" value="140000" min="0" step="1000">원</label><small id="careFeeFormula">140,000원 ÷ 24시간 × 154시간</small><br><strong id="careTotalFee">총 898,333원</strong></dd></div></dl></article><aside class="card contract-points"><h3>주요 계약 내용</h3><ul><li>돌봄 범위와 근무시간을 확인합니다.</li><li>환자 안전수칙과 개인정보 보호 의무를 준수합니다.</li><li>변경·취소 및 환불 조건은 계약서 기준을 따릅니다.</li><li>돌봄비는 협회 지정 계좌로 납부합니다.</li></ul></aside></div>
+        <article class="card agreement"><h3>계약서 확인 및 동의</h3><p>위 계약 내용과 돌봄서비스 이용 조건을 환자 또는 보호자가 확인하고, 대한노인돌봄서비스협회와의 계약 체결에 동의합니다.</p><label class="consent"><input id="contractAgree" type="checkbox"><span>계약 당사자와 서비스 내용, 기간, 돌봄비 및 주요 약정을 모두 확인했습니다.</span></label><button id="confirmContract" disabled>계약 확인 완료</button></article>
+      </section>
+
+      <section id="incident" class="view">
+        <div class="section-intro"><span class="tag red">도착 인증 완료</span><h2>현장 불발 신고</h2><p>병원 위치와 도착 시각이 안전하게 저장되었습니다.</p></div>
+        <div class="timeline"><div class="timeline-item done"><i>✓</i><div><strong>도착 인증</strong><span>분당서울대병원 · 오늘 오후 1:47</span></div></div><div class="timeline-item active"><i>2</i><div><strong>불발 사유 선택</strong><span>현재 상황과 가장 가까운 사유를 선택하세요.</span></div></div><div class="timeline-item"><i>3</i><div><strong>당사자 확인</strong><span>보호자와 담당 간호사에게 확인 요청</span></div></div><div class="timeline-item"><i>4</i><div><strong>보상 심사</strong><span>자료 확인 후 지급액 확정</span></div></div></div>
+        <article class="card incident-card"><h3>무슨 일이 있었나요?</h3><div class="reason-grid" id="reasonGrid"><button>보호자 취소</button><button>중복 배정</button><button>입실 거부</button><button>조건 변경</button><button>병원 사정</button><button>기타</button></div><label>상세 내용<textarea id="incidentDetail" placeholder="상황을 간단히 적어 주세요."></textarea></label><button class="primary" id="incidentSubmit" disabled>확인 요청 보내기</button></article>
+        <div class="incident-compensation"><div class="section-intro compact"><span class="tag amber">신고와 함께 확인</span><h2>현장 매칭 불발 보상 기준</h2><p>돌봄인이 약속된 장소에 도착했지만 현장에서 돌봄을 시작하지 못한 경우 적용할 기준입니다.</p></div><div class="grid form-grid"><article class="card"><h3>보상 기준 선택</h3><div class="form-row"><label>교통비<select id="transport"><option value="30000">정액 30,000원</option><option value="50000">정액 50,000원</option><option value="0">실비(증빙)</option></select></label><label>일당 보상<select id="daily"><option value="70000">일당의 50%</option><option value="140000">일당 전액</option><option value="50000">정액 50,000원</option></select></label></div><div class="form-row"><label>대기 인정시간<select><option>도착 후 30분</option><option>도착 후 60분</option></select></label><label>지급 기한<select><option>확정 후 24시간 이내</option><option>확정 후 48시간 이내</option></select></label></div><label>지급 주체<select><option>보호자</option><option>환자</option><option>중개사업자</option></select></label></article><aside class="card estimate"><span>예상 보상액</span><strong id="estimateAmount">100,000원</strong><p id="estimateFormula">교통비 30,000원 + 일당 50% 70,000원</p><hr><dl><div><dt>지급 주체</dt><dd>보호자</dd></div><div><dt>지급 기한</dt><dd>확정 후 24시간</dd></div></dl></aside></div></div>
+      </section>
+
+      <section id="association" class="view">
+        <div class="association-head"><div><span class="tag red">협회 관리자 전용</span><h2>대한노인돌봄서비스협회 관리</h2><p>돌봄 의뢰부터 배정·교육·정산까지 통합 관리합니다.</p></div><button class="assoc-primary" data-go="guardian">+ 새 돌봄 의뢰 등록</button></div>
+        <div class="assoc-metrics"><article><span>신규 돌봄 의뢰</span><strong>12건</strong><small>오늘 접수</small></article><article><span>배정 대기</span><strong>7건</strong><small>돌봄인 확인 필요</small></article><article><span>돌봄 진행</span><strong>38건</strong><small>분당서울대병원</small></article><article><span>정산 대기</span><strong>9건</strong><small>승인 필요</small></article></div>
+        <div class="assoc-grid">
+          <article class="card task-panel"><div class="card-head"><div><h3>오늘의 관리 업무</h3><p>우선 확인이 필요한 항목입니다.</p></div><span class="count-badge">5</span></div><button><i class="red-i">긴급</i><span><strong>돌봄인 미배정 의뢰 3건</strong><small>시작 예정 24시간 이내</small></span><b>›</b></button><button><i>계약</i><span><strong>전자서명 확인 1건</strong><small>보호자 서명 완료 · 협회 확인 대기</small></span><b>›</b></button><button><i class="green-i">교육</i><span><strong>돌봄인 교육 갱신 1건</strong><small>감염예방 교육 만료 예정</small></span><b>›</b></button></article>
+          <article class="card settlement-flow"><h3>돌봄비 입금·정산</h3><div class="flow-row"><div class="flow-step done"><span>1</span><strong>보호자 입금</strong><small>간병24 수납</small></div><b>→</b><div class="flow-step current"><span>2</span><strong>협회 확인</strong><small>계약·근무 검수</small></div><b>→</b><div class="flow-step"><span>3</span><strong>돌봄인 지급</strong><small>계좌 정산</small></div></div><div class="bank-box"><div><small>입금 계좌</small><strong>우리은행 1005-804-669803</strong><span>예금주 대한노인돌봄서비스협회(중앙회)</span></div><button data-view-finance>정산 관리 →</button></div></article>
+        </div>
+        <div class="management-title"><h3>관리 메뉴</h3><span>간병24 운영 · 대한노인돌봄서비스협회 관리</span></div>
+        <div class="management-grid"><button data-go="guardian"><span>의뢰</span><strong>환자·보호자 돌봄 의뢰</strong><small>신청·계약·보상 기준 관리</small></button><button><span>인력</span><strong>돌봄인 근무 신청</strong><small>자격·일정·배정 가능 상태</small></button><button><span>배정</span><strong>계약·돌봄인 배정</strong><small>병동별 매칭과 계약 상태</small></button><button data-go="finance"><span>정산</span><strong>돌봄비 입금·정산</strong><small>수납·지급·미수금 관리</small></button><button><span>교육</span><strong>돌봄인 수칙·교육</strong><small>감염예방·윤리·직무교육</small></button><button data-go="nurseEvaluation"><span>평가</span><strong>돌봄인 교육·지도 평가</strong><small>점수 판정·부적격 교체 요청</small></button></div>
+        <div class="assoc-contact"><div><span>상담</span><div><strong>1600-5197</strong><small>대한노인돌봄서비스협회 대표상담</small></div></div><p>간병24 클라우드는 병원 전산망·클라우드와 분리하여 사용합니다.</p></div>
+      </section>
+
+      <section id="nurseEvaluation" class="view">
+        <div class="evaluation-head"><div><span class="tag blue">병실 전담간호사용</span><h2>돌봄인 교육·지도 평가표</h2><p>환자 돌봄에 필요한 지시와 주의사항을 교육·지도한 뒤, 관찰한 수행 수준을 항목별로 평가합니다.</p></div><div class="evaluation-scale"><small>판정 기준</small><strong>40점 이상 적격</strong><span>40점 미만 또는 필수 안전항목 0점은 부적격</span></div></div>
+        <article class="card evaluation-info"><h3>평가 대상</h3><div class="evaluation-fields"><label>평가일<input id="evaluationDate" type="date"></label><label>병동<select id="evaluationWard"><option>1동 · 82병동</option><option>2동 · 72병동</option></select></label><label>병실<input id="evaluationRoom" placeholder="예: 8212호"></label><label>돌봄인 성명<input id="evaluatedCaregiver" placeholder="돌봄인 성명"></label><label>전담간호사 성명<input id="evaluatorName" placeholder="평가자 성명"></label></div></article>
+        <div class="score-guide" aria-label="평가 점수 기준"><span><b>5</b> 매우 우수</span><span><b>4</b> 우수</span><span><b>3</b> 적정</span><span><b>2</b> 개선 필요</span><span><b>1</b> 미흡</span><span><b>0</b> 미수행</span></div>
+        <article class="evaluation-sheet"><div class="evaluation-title-row"><div><h3>항목별 체크리스트</h3><p>환자 상태와 병동 지시에 해당하지 않는 항목은 ‘해당 없음’을 선택하며 총점 계산에서 제외됩니다.</p></div><span id="evaluationProgress">0 / 10 평가</span></div><div class="evaluation-table-wrap"><table class="evaluation-table"><thead><tr><th>구분</th><th>평가 항목</th><th>점수</th><th>교육·지도 및 관찰 메모</th></tr></thead><tbody id="evaluationBody"></tbody></table></div></article>
+        <div class="evaluation-result-grid"><article class="evaluation-result" id="evaluationResult"><span>평가 결과</span><strong id="evaluationScore">— / 50점</strong><b id="evaluationDecision">평가 대기</b><p id="evaluationReason">모든 항목을 평가하면 자동으로 판정됩니다.</p></article><article class="card evaluation-notes"><h3>종합 교육·지도 내용</h3><label>전달한 환자별 주의사항<textarea id="patientInstructions" placeholder="예: 이동 시 반드시 호출벨 사용, 식사 중 흡인 징후 관찰"></textarea></label><label>개선 요청 및 재평가 계획<textarea id="improvementPlan" placeholder="필요한 재교육 내용과 재평가 예정일을 입력하세요."></textarea></label></article></div>
+        <article class="replacement-request" id="replacementRequest"><div><span>부적격 판정 시</span><h3>협회에 돌봄인 교체 요청</h3><p>교체 사유와 긴급도를 입력하면 평가표와 함께 대한노인돌봄서비스협회에 전달할 수 있습니다.</p></div><div class="replacement-fields"><label>교체 긴급도<select id="replacementUrgency"><option>즉시 교체 요청</option><option>당일 중 교체 요청</option><option>협의 후 교체</option></select></label><label>교체 요청 사유<textarea id="replacementReason" placeholder="환자 안전과 관련된 구체적인 관찰 사실을 입력하세요."></textarea></label></div><label class="evaluation-confirm"><input id="evaluationConfirm" type="checkbox"><span>위 평가는 직접 교육·지도하고 관찰한 사실을 기준으로 작성했습니다.</span></label><button id="sendEvaluation" disabled>평가표 저장 후 협회에 보내기</button></article>
+        <p class="evaluation-note">이 평가는 돌봄인의 비의료적 돌봄 수행과 병동 지시 준수 여부를 확인하기 위한 것입니다. 환자 상태에 대한 의료적 판단이나 간호행위 평가는 포함하지 않습니다.</p>
+      </section>
+
+      <section id="finance" class="view">
+        <div class="finance-head"><div><span class="tag navy">재무 관리자 전용</span><h2>분당서울대병원 수주·돌봄비</h2></div><div class="filters"><select><option>2026년 9월</option></select><select><option>전체 병동</option><option>82병동</option></select><button>내보내기</button></div></div>
+        <div class="metric-grid"><article><span>확정 수주액</span><strong>₩148,600,000</strong><small>전월 대비 +8.4%</small></article><article><span>순수납액</span><strong>₩136,240,000</strong><small>수납률 91.7%</small></article><article><span>미수금</span><strong>₩11,180,000</strong><small class="warn">확인 필요 14건</small></article><article><span>환불액</span><strong>₩1,180,000</strong><small>승인 완료 6건</small></article></div>
+        <div class="grid dashboard-grid"><article class="card chart-card"><div class="card-head"><div><h3>주별 수주·수납 추이</h3><p>서비스 제공일 기준</p></div><div class="legend"><span><i class="navy-dot"></i>수주액</span><span><i class="mint-dot"></i>수납액</span></div></div><div class="bars"><div><span class="bar contracted" style="height:76%"></span><span class="bar paid" style="height:68%"></span><small>1주</small></div><div><span class="bar contracted" style="height:91%"></span><span class="bar paid" style="height:84%"></span><small>2주</small></div><div><span class="bar contracted" style="height:66%"></span><span class="bar paid" style="height:61%"></span><small>3주</small></div><div><span class="bar contracted" style="height:83%"></span><span class="bar paid" style="height:75%"></span><small>4주</small></div></div></article><article class="card"><h3>정산 현황</h3><div class="donut-wrap"><div class="donut"><span>91.7%<small>수납 완료</small></span></div></div><dl class="settlement"><div><dt><i class="settled"></i>수납 완료</dt><dd>136.24백만</dd></div><div><dt><i class="outstanding"></i>미수금</dt><dd>11.18백만</dd></div><div><dt><i class="refund"></i>환불</dt><dd>1.18백만</dd></div></dl></article></div>
+        <article class="card table-card"><div class="card-head"><div><h3>최근 계약</h3><p>금액은 재무 관리자에게만 표시됩니다.</p></div><button class="ghost">전체 보기</button></div><div class="table-scroll"><table><thead><tr><th>매칭번호</th><th>환자</th><th>병동</th><th>기간</th><th>확정 돌봄비</th><th>수납 상태</th></tr></thead><tbody><tr><td>SN-260904-023</td><td>홍*동</td><td>82병동</td><td>9.4–9.10</td><td>980,000원</td><td><span class="pill paid">수납 완료</span></td></tr><tr><td>SN-260903-018</td><td>김*자</td><td>71병동</td><td>9.3–9.17</td><td>2,100,000원</td><td><span class="pill due">일부 수납</span></td></tr><tr><td>SN-260902-011</td><td>박*호</td><td>82병동</td><td>9.2–9.8</td><td>840,000원</td><td><span class="pill paid">수납 완료</span></td></tr></tbody></table></div></article>
+      </section>
+    </main>
+  </div>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <div class="modal" id="modal" aria-hidden="true"><div class="modal-card"><div class="modal-icon">✓</div><h2 id="modalTitle">돌봄이 시작되었습니다</h2><p id="modalText">시작 시각이 자동으로 기록되고 보호자와 병동에 전달되었습니다.</p><button id="modalClose">확인</button></div></div>
+  <link rel="stylesheet" href="exam-track-style.css">
+  <link rel="stylesheet" href="exam-answer-sheet.css">
+  <link rel="stylesheet" href="course-separation.css">
+  <link rel="stylesheet" href="request-completion.css">
+  <script src="app.js"></script>
+  <script src="request-privacy-detail.js"></script>
+  <script src="android-bridge.js"></script>
+  <script src="request-ready-fix.js"></script>
+  <script src="request-completion.js"></script>
+  <script src="education-center.js"></script>
+  <script src="course-separation.js"></script>
+  <script src="education-practicum.js"></script>
+  <script src="dementia-course.js"></script>
+  <script src="comprehensive-course.js"></script>
+  <script src="exam-center.js"></script>
+  <script src="exam-policy.js"></script>
+  <script src="exam-answer-sync.js"></script>
+  <script src="exam-answer-sheet.js"></script>
+  <script src="specialist-system.js"></script>
+</body>
+</html>

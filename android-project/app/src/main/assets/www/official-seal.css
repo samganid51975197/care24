@@ -1,0 +1,3 @@
+.chair-seal .official-seal-crop{display:block;position:relative;width:112px;height:112px;overflow:hidden;background:#fff;flex:none}
+.chair-seal .official-seal-crop img{position:absolute;width:1240px;height:1754px;max-width:none;left:-505px;top:-939px}
+@media(max-width:480px){.chair-seal .official-seal-crop{width:108px;height:108px}}

@@ -1,0 +1,4 @@
+.request-submit-guide{display:block;flex:1;min-width:220px;color:#a62939;font-size:13px;line-height:1.5;font-weight:700}
+.request-submit-guide.ready{color:#08796c}
+.request-contract-document footer{flex-wrap:wrap}
+#requestSubmit{opacity:1!important;cursor:pointer!important}

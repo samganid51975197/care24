@@ -1,0 +1,19 @@
+.terminology-notice{background:#fff;border:1px solid var(--line);border-left:5px solid var(--mint);border-radius:16px;padding:22px;margin:0 0 22px;box-shadow:0 4px 16px rgba(16,42,67,.05)}
+.terminology-notice header>span{display:inline-block;color:#08796c;background:#e5f8f4;border-radius:7px;padding:5px 9px;font-size:13px;font-weight:900}
+.terminology-notice h2{font-size:23px;margin:8px 0 4px}
+.terminology-notice header p{margin:0;color:var(--muted)}
+.terminology-compare{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin:17px 0}
+.terminology-compare article{border:1px solid var(--line);border-radius:12px;padding:15px;background:#f8fafb}
+.terminology-compare article>b{display:inline-block;border-radius:999px;background:#e9eef2;color:#53636e;padding:4px 9px;font-size:13px}
+.terminology-compare article>strong,.terminology-compare article>p{display:block}
+.terminology-compare article>strong{margin:8px 0 4px}
+.terminology-compare article>p{margin:0;color:var(--muted);font-size:14px;line-height:1.6}
+.terminology-compare .selected-term{border:2px solid #65c7b7;background:#edf9f6}
+.terminology-compare .selected-term>b{background:#08796c;color:#fff}
+.terminology-boundary{display:grid;grid-template-columns:130px 1fr;gap:13px;background:#fff6e7;border:1px solid #edc987;border-radius:11px;padding:14px 16px}
+.terminology-boundary strong{color:#8b5600}
+.terminology-boundary p{margin:0;color:#705d40;font-size:14px;line-height:1.65}
+.terminology-notice footer{display:flex;justify-content:space-between;gap:15px;align-items:center;margin-top:14px;color:var(--muted);font-size:13px}
+.terminology-notice footer div{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.terminology-notice footer a{color:#245ed0;font-weight:800;white-space:nowrap}
+@media(max-width:850px){.terminology-compare{grid-template-columns:1fr}.terminology-boundary{grid-template-columns:1fr}.terminology-notice footer{display:block}.terminology-notice footer div{justify-content:flex-start;margin-top:9px}}

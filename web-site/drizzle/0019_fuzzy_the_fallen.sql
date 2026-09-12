@@ -1,0 +1,1 @@
+ALTER TABLE `care_requests` ADD `desired_other` text DEFAULT '' NOT NULL;
