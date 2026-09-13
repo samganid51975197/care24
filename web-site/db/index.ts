@@ -1,13 +1,16 @@
-import { env } from "cloudflare:workers";
-import { drizzle } from "drizzle-orm/d1";
+import { createClient } from "@libsql/client";
+import { drizzle } from "drizzle-orm/libsql";
 import * as schema from "./schema";
+import {existsSync} from 'node:fs';
 
-export function getDb() {
-  if (!env.DB) {
-    throw new Error(
-      "Cloudflare D1 binding `DB` is unavailable. Set the `d1` field in .openai/hosting.json to `DB` or let your control plane inject the real binding values before using the database."
-    );
+let client: ReturnType<typeof createClient> | undefined;
+export function getClient() {
+  if(existsSync('.private/encryption-maintenance'))throw new Error('Data protection maintenance in progress');
+  if (!client) {
+    const url = process.env.CARE24_DATABASE_URL;
+    if (!url || !url.startsWith("file:")) throw new Error("CARE24_DATABASE_URL must name the private local database.");
+    client = createClient({ url });
   }
-
-  return drizzle(env.DB, { schema });
+  return client;
 }
+export function getDb() { return drizzle(getClient(), { schema }); }

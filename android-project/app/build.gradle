@@ -2,20 +2,43 @@ plugins {
     id 'com.android.application'
 }
 
+def signingPath = System.getenv('CARE24_ANDROID_KEYSTORE')
+def signingPassword = System.getenv('CARE24_ANDROID_STORE_PASSWORD')
+
 android {
     namespace 'kr.or.care24.app'
-    compileSdk 35
+    compileSdk 36
 
     defaultConfig {
         applicationId 'kr.or.care24.app'
         minSdk 26
-        targetSdk 35
-        versionCode 13
+        targetSdk 36
+        versionCode 14
         versionName '1.1.4'
+        manifestPlaceholders = [twaHost: 'xn--24-ts1i486c.com', twaUrl: 'https://xn--24-ts1i486c.com/', launcherActivity: '.MainActivity', launcherTheme: '@android:style/Theme.Translucent.NoTitleBar']
+    }
+
+    signingConfigs {
+        if (signingPath && signingPassword) {
+            production {
+                storeFile file(signingPath)
+                storePassword signingPassword
+                keyAlias 'care24-upload'
+                keyPassword signingPassword
+            }
+        }
     }
 
     buildTypes {
+        debug {
+            applicationIdSuffix '.dev'
+            manifestPlaceholders.launcherActivity = '.LocalPreviewActivity'
+            manifestPlaceholders.launcherTheme = '@style/Theme.Care24'
+            manifestPlaceholders.twaHost = '127.0.0.1'
+            manifestPlaceholders.twaUrl = 'http://127.0.0.1:3100/'
+        }
         release {
+            if (signingPath && signingPassword) signingConfig signingConfigs.production
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -27,4 +50,22 @@ android {
     }
 }
 
-dependencies {}
+android.sourceSets.main.assets.srcDirs = []
+
+dependencies {
+    implementation 'com.google.androidbrowserhelper:androidbrowserhelper:2.7.3'
+}
+
+tasks.configureEach { task ->
+    if (task.name == 'preDebugBuild') task.dependsOn 'connectLocalPreview'
+    if (task.name == 'preReleaseBuild') {
+        task.doFirst {
+            if (!signingPath || !signingPassword) throw new GradleException('Release signing requires CARE24_ANDROID_KEYSTORE and CARE24_ANDROID_STORE_PASSWORD.')
+        }
+    }
+}
+
+tasks.register('connectLocalPreview', Exec) {
+    commandLine android.adbExecutable, 'reverse', 'tcp:3100', 'tcp:3100'
+    ignoreExitValue true
+}

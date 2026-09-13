@@ -11,7 +11,6 @@ import {
   HeartHandshake,
   Home as HomeIcon,
   Inbox,
-  GraduationCap,
   GripVertical,
   Hospital,
   MessageSquareWarning,
@@ -43,29 +42,6 @@ type Row = {
   status: string;
   createdAt: string;
 };
-const duties = [
-  "기본업무 수행능력 — 소변 비우기, 관찰·기록·보고하기, 기저귀 갈기, 씻기, 일상생활지원, 개인활동지원, 정서지원, 인지활동지원, 인지관리지원 등",
-  "유니폼 착용 및 명찰 패용",
-  "친절한 태도와 언행",
-  "간병시간 준수",
-  "간병장소 이탈 금지",
-  "치료방침 및 의료진에게 협조",
-  "환자안전 및 감염예방(마스크 착용)을 위한 지침 준수",
-];
-const rules = [
-  "큰소리로 통화 및 대화",
-  "다른 환자 냉장고 사용",
-  "병실화장실 및 욕실에서 샤워",
-  "환자대상 상행위",
-  "간이주방에서 음식조리",
-  "세탁 및 전열기구 사용",
-  "병원물품 남용",
-  "정해진 간병료 외 추가금액 요구",
-  "환자거부",
-  "임의알선 및 사적 인수인계",
-  "환자관련 정보 누설",
-  "병상간격 지키기",
-];
 const hospitalWards: Record<string, string[]> = {
   "1동": ["4층 · 병동/신생아실", "5층 · 1·2병동", "6층 · 병동/62치료센터", "7층 · 1·2병동", "8층 · 병동/낮병동", "9층 · 1·2병동", "9층 · 집중치료실 (심혈관센터 sub-ICU)", "10~11층 · 1·2병동", "12층 · 병동/중환자실·소아중환자실", "13층 · 1·2병동"],
   "2동": ["5층 · 항암낮병동", "6층 · 1·2병동", "7층 · 1·2병동", "8층 · 병동/뇌신경재활치료실", "9층 · 병동/급성기 완화의료병동", "10층 · 병동/CAR-T 치료상담실", "11층 · 1·2병동"],
@@ -283,7 +259,6 @@ export default function Home() {
           <button type="button" onClick={() => setMenuCard("공지사항")}><Megaphone /><span>공지사항</span></button>
                 <button type="button" onClick={openCareRequest}><HeartHandshake /><span>간병인 의뢰</span></button>
           <button type="button" onClick={() => moveTo("forms", "care-request")}><UserPlus /><span>간병인 신청</span></button>
-          <button type="button" onClick={() => moveTo("forms", "care-education")}><GraduationCap /><span>간병인 교육</span></button>
           <button type="button" onClick={() => moveTo("inbox")}><Hospital /><span>병동 간호사실</span></button>
           <button type="button" onClick={() => moveTo("inbox")}><Building2 /><span>협회 관리실</span></button>
           <button type="button" onClick={() => setMenuCard("간병뉴스")}><Newspaper /><span>간병뉴스</span></button>
@@ -340,14 +315,6 @@ export default function Home() {
           </div>
           <TabsContent value="forms">
             <div id="care-request" className="rail-anchor"><ApplicationForm onDone={load} /></div>
-            <div className="document-divider">
-              <FileText />
-              <div>
-                <b>간병도우미 약정서</b>
-                <span>간병인 신청과 별도로 작성·전송합니다.</span>
-              </div>
-            </div>
-            <div id="care-education" className="rail-anchor"><AgreementForm onDone={load} /></div>
             <div className="document-divider">
               <Camera />
               <div>
@@ -560,22 +527,6 @@ function ApplicationForm({ onDone }: { onDone: () => void }) {
             required={false}
           />
         </div>
-        <fieldset className="provider-contract">
-          <legend>돌봄서비스 제공 계약서</legend>
-          <p className="provider-contract-note"><b>앱용 자체 계약서</b> 서울형 간병인 표준계약서와 보건복지부 표준계약 항목을 참고해 간병인 신청용으로 구성했습니다. 실제 환자와 매칭되면 의뢰계약서의 근무조건과 함께 최종 확인됩니다.</p>
-          <div className="grid-2">
-            <label>제공 간병 구분<select name="providerCareType" required defaultValue="개인간병"><option>개인간병</option><option>공동간병</option><option>모두 가능</option></select></label>
-            <label>제공 가능 급여기준<select name="providerSchedule" required defaultValue="전일제(24시간)"><option>전일제(24시간)</option><option>주간제(12시간)</option><option>야간제(12시간)</option><option>시간제(12시간 미만)</option><option>협의 가능</option></select></label>
-            <Field label="제공 가능 시간" name="providerAvailableHours" placeholder="예: 08:00~20:00 또는 협의" required={false}/>
-            <Field label="휴게·휴일 조건" name="providerRestTerms" placeholder="예: 상호 협의" />
-            <Field label="희망 간병비" name="providerFee" placeholder="예: 150,000원 (편집 가능)" />
-            <label>금액 단위<select name="providerFeePeriod" required defaultValue="1일"><option>1시간</option><option>1일</option><option>1주</option><option>1개월</option><option>총 계약기간</option></select></label>
-            <Field label="제공 서비스 범위" name="providerServiceScope" placeholder="식사·위생·배설·이동·정서지원·관찰 및 보고" />
-            <Field label="제공계약 특약" name="providerContractNote" placeholder="추가 협의사항" required={false}/>
-          </div>
-          <div className="provider-clauses"><b>제공자 확인사항</b><ol><li>환자 안전과 병동의 감염관리 지침을 지키고 상태 변화는 간호사실에 즉시 보고합니다.</li><li>의료인이 아닌 경우 투약·처치 등 의료행위를 임의로 하지 않습니다.</li><li>합의하지 않은 추가 금액을 요구하지 않으며 환자와 보호자의 개인정보를 보호합니다.</li><li>근무조건 변경이나 서비스 종료는 상대방이 확인할 수 있도록 기록합니다.</li></ol></div>
-          <label className="provider-consent"><input type="checkbox" name="providerContractConsent" value="동의" required/><span><b>제공 계약 동의</b> 위 제공범위·근무시간·희망 간병비·휴게 및 준수사항을 확인했습니다.</span></label>
-        </fieldset>
         <HandwritingPad />
         <div className="mini-actions">
           <Button type="submit" value="save" variant="outline" disabled={busy}>
@@ -593,211 +544,6 @@ function ApplicationForm({ onDone }: { onDone: () => void }) {
           </div>
         )}
       </section>
-    </form>
-  );
-}
-function AgreementForm({ onDone }: { onDone: () => void }) {
-  const [id, setId] = useState<number | null>(null),
-    [busy, setBusy] = useState(false),
-    [msg, setMsg] = useState("");
-  async function go(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setBusy(true);
-    const f = e.currentTarget,
-      fd = new FormData(f),
-      action =
-        ((e.nativeEvent as SubmitEvent).submitter as HTMLButtonElement)
-          ?.value || "save",
-      body: any = Object.fromEntries(fd.entries());
-    body.action = action;
-    body.id = id;
-    body.duties = JSON.stringify(
-      duties.map((_, i) => fd.get(`duty_${i}`) || ""),
-    );
-    body.rules = JSON.stringify(rules.map((_, i) => fd.get(`rule_${i}`) || ""));
-    try {
-      const r = await fetch("/api/submissions", {
-          method: id ? "PATCH" : "POST",
-          headers: { "content-type": "application/json" },
-          body: JSON.stringify(body),
-        }),
-        j = await r.json();
-      if (!r.ok) throw Error(j.error);
-      setId(j.submission.id);
-      setMsg(action === "complete" ? `약정서 완료 · 약정서 번호 ${j.submission.id}` : action === "confirm" ? `약정서 확인 완료 · 약정서 번호 ${j.submission.id}` : action === "send" ? `간호사실·협회·간병24 전송 완료 · 약정서 번호 ${j.submission.id}` : `약정서 저장 완료 · 약정서 번호 ${j.submission.id}`);
-      onDone();
-      if (action === "complete") {
-        f.reset();
-        setId(null);
-      }
-    } catch (x) {
-      setMsg(x instanceof Error ? x.message : "처리하지 못했습니다.");
-    } finally {
-      setBusy(false);
-    }
-  }
-  return (
-    <form onSubmit={go} className="form-stack document-form">
-      <section className="card">
-        <Title
-          n="1"
-          title="간병 정보"
-          sub="간병인과 환자의 기본 정보를 입력합니다."
-        />
-        <div className="recipient-strip three">
-          <b>수신처</b>
-          <span>간호사실</span>
-          <span>협회</span>
-          <span>간병24</span>
-        </div>
-        <div className="self-entry-guide">색이 표시된 칸만 간병인 본인이 작성합니다.</div>
-        <div className="grid-2 agreement-top">
-          <div className="self-entry"><Field label="간병인 본인 성명" name="caregiverName" /></div>
-          <div className="self-entry"><Field label="소속 단체" name="caregiverOrg" placeholder="예: 간병24" /></div>
-          <Field label="병동 (담당자 확인란)" name="ward" required={false} disabled />
-          <Field label="병실 (담당자 확인란)" name="room" required={false} disabled />
-          <Field label="환자 성명 (담당자 확인란)" name="patientName" required={false} disabled />
-          <div className="date-pair">
-            <Field label="근무 시작일 (담당자)" name="workStart" type="date" required={false} disabled />
-            <Field label="근무 종료일 (담당자)" name="workEnd" type="date" required={false} disabled />
-          </div>
-        </div>
-        <div className="agreement">
-          <Checkbox id="agreement" required />
-          <Label htmlFor="agreement">
-            본인은 상기 환자를 간병함에 있어 아래 사항을 준수할 것을 약정합니다.
-          </Label>
-        </div>
-      </section>
-      <section className="card">
-        <Title
-          n="2"
-          title="간병료 약정"
-          sub="상황에 맞는 실제 협의 금액을 직접 입력합니다."
-        />
-        <div className="field contract-kind">
-          <Label>
-            계약 구분 <span> *</span>
-          </Label>
-          <Choice name="contractType" options={["공동간병", "개인간병"]} />
-        </div>
-        <div className="field patient-kind">
-          <Label>
-            환자 상태 <span> *</span>
-          </Label>
-          <Choice
-            name="feeType"
-            options={["일반환자", "중증환자", "기타 상황"]}
-          />
-        </div>
-        <div className="salary-groups">
-          <section className="salary-panel">
-            <h3>공동간병 계약서 급여</h3>
-            <p>근무 형태별 급여를 각각 직접 입력하고 수정할 수 있습니다.</p>
-            <div className="grid-2 fee-fields">
-              <MoneyField label="전일제 급여" name="commonFullTimeFee" />
-              <MoneyField label="2교대 급여" name="commonTwoShiftFee" />
-              <MoneyField label="3교대 급여" name="commonThreeShiftFee" />
-            </div>
-          </section>
-          <section className="salary-panel personal">
-            <h3>개인간병 계약서 급여</h3>
-            <p>환자와 협의한 개인간병 급여를 직접 입력합니다.</p>
-            <div className="grid-2 fee-fields">
-              <MoneyField label="개인간병 급여" name="personalFee" />
-              <div className="field">
-                <Label>
-                  급여기준 <span> *</span>
-                </Label>
-                <Choice
-                  name="feePeriod"
-                  options={["전일제(24시간)", "주간제(12시간)", "야간제(12시간)", "시간제(12시간 미만)"]}
-                />
-              </div>
-            </div>
-          </section>
-        </div>
-        <Field
-          label="금액 적용 사유·추가 조건"
-          name="feeNote"
-          placeholder="예: 중증환자, 격리병실, 야간 추가비용 등"
-          required={false}
-        />
-        <div className="notice">
-          참고 : 간병비 결정은 환자상태와 근무조건에 따라 협의하여 결정하며,
-          간병인 식사는 병원 직원식당 이용을 기준으로 결정합니다.
-        </div>
-      </section>
-      <section className="card">
-        <Title
-          n="3"
-          title="간병활동 평가"
-          sub="만족도와 이행 수준을 평가합니다."
-        />
-        <div className="question">
-          <h3>환자·보호자 만족도</h3>
-          <Choice name="satisfaction" options={["상", "중", "하"]} />
-        </div>
-        <div className="checklist">
-          {duties.map((x, i) => (
-            <div className="check-row" key={x}>
-              <span>{x}</span>
-              <Choice name={`duty_${i}`} options={["이행", "미이행"]} />
-            </div>
-          ))}
-        </div>
-      </section>
-      <section className="card">
-        <Title
-          n="4"
-          title="병원지침 준수"
-          sub="금지사항 위반 여부를 확인합니다."
-        />
-        <div className="rules">
-          {rules.map((x, i) => (
-            <div className="rule" key={x}>
-              <span>{x}</span>
-              <Choice name={`rule_${i}`} options={["준수", "위반"]} />
-            </div>
-          ))}
-        </div>
-      </section>
-      <section className="card">
-        <Title
-          n="5"
-          title="종합평가 및 확인"
-          sub="재배치 여부와 수간호사 확인을 기록합니다."
-        />
-        <div className="question">
-          <h3>종합평가</h3>
-          <Choice
-            name="overall"
-            options={["재배치 가능", "교육후 재배치 가능", "재배치 불가"]}
-          />
-        </div>
-        <div className="grid-2 confirm">
-          <Field label="확인 수간호사" name="headNurse" />
-          <Field label="확인일" name="confirmedAt" type="date" />
-        </div>
-      </section>
-      <HandwritingPad />
-      <div className="actions split-actions">
-        <Button type="submit" value="save" variant="outline" disabled={busy}>
-          <Save />
-          약정서 저장
-        </Button>
-        <Button type="submit" value="send" disabled={busy}>
-          <Send />
-          간호사실·협회·간병24에 보내기
-        </Button>
-        <Button type="submit" value="confirm" variant="outline" disabled={busy}><ClipboardCheck/>확인</Button>
-        <Button type="submit" value="complete" className="complete-btn" disabled={busy}><ClipboardCheck/>완료</Button>
-      </div>
-      {msg && (
-        <div className={msg.includes("완료") ? "result ok" : "result"}>
-          {msg}
-        </div>
-      )}
     </form>
   );
 }
@@ -1396,26 +1142,12 @@ function CareContractForm({
           <h3>의류 수령</h3><p>수령한 물품의 개수를 숫자로 입력하세요.</p>
           <div className="clothing-grid"><ItemCount n="1" label="상의" name="topCount"/><ItemCount n="2" label="하의" name="bottomCount"/><ItemCount n="3" label="앞치마" name="apronCount"/><ItemCount n="4" label="신발" name="shoesCount"/><ItemCount n="5" label="명찰" name="nameTagCount"/></div>
         </div>
-        <h3 className="contract-subtitle">4. 업무와 특약</h3>
-        <div className="grid-2">
-          <Field
-            label="간병 업무 내용"
-            name="duties"
-            placeholder="식사·위생·이동·안전 등"
-          />
-          <Field
-            label="특약사항"
-            name="specialTerms"
-            placeholder="휴게, 식비, 교통비, 중도해지 등"
-            required={false}
-          />
-        </div>
         <div className="contract-declaration">
           양 당사자는 위 근로·간병 조건과 간병비 수령계좌를 확인하고 성실히
           이행할 것을 약정합니다.
         </div>
         <div className="grid-2">
-          <Field label="사용자·보호자 서명" name="employerSignature" />
+          <Field label="환자·보호자 서명" name="employerSignature" />
           <Field label="간병인 서명" name="caregiverSignature" />
           <Field label="계약일" name="signedAt" type="date" />
         </div>

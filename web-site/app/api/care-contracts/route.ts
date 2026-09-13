@@ -1,3 +1,4 @@
+import {withActor,scope,scopedId,ownership,workflowGuard,type Actor} from "../../../lib/auth";
 import { desc, eq, sql } from "drizzle-orm";
 import { getDb } from "../../../db";
 import { careContracts } from "../../../db/schema";
@@ -19,7 +20,6 @@ const required = [
   "bankHolder",
   "socialInsurance",
   "retirementPension",
-  "duties",
   "employerSignature",
   "caregiverSignature",
   "signedAt",
@@ -86,20 +86,19 @@ function values(b: Record<string, any>) {
     apronCount: String(b.apronCount || "0"),
     shoesCount: String(b.shoesCount || "0"),
     nameTagCount: String(b.nameTagCount || "0"),
-    duties: b.duties,
-    specialTerms: b.specialTerms || "",
     employerSignature: b.employerSignature,
     caregiverSignature: b.caregiverSignature,
     signedAt: b.signedAt,
     ...workflow(String(b.action || "save")),
   };
 }
-export async function GET() {
+async function handleGET(req:Request, actor:Actor) {
   try {
     return Response.json({
       contracts: await getDb()
         .select()
         .from(careContracts)
+        .where(scope(careContracts,actor))
         .orderBy(desc(careContracts.id))
         .limit(100),
     });
@@ -110,7 +109,7 @@ export async function GET() {
     );
   }
 }
-export async function POST(req: Request) {
+async function handlePOST(req:Request, actor:Actor) {
   try {
     const b = (await req.json()) as Record<string, any>;
     if (!valid(b))
@@ -120,7 +119,7 @@ export async function POST(req: Request) {
       );
     const [x] = await getDb()
       .insert(careContracts)
-      .values(values(b))
+      .values({...values(b),duties:"",...ownership(actor)})
       .returning();
     return Response.json({ contract: x }, { status: 201 });
   } catch {
@@ -130,7 +129,7 @@ export async function POST(req: Request) {
     );
   }
 }
-export async function PATCH(req: Request) {
+async function handlePATCH(req:Request, actor:Actor) {
   try {
     const b = (await req.json()) as Record<string, any>,
       id = Number(b.id);
@@ -142,7 +141,7 @@ export async function PATCH(req: Request) {
     const [x] = await getDb()
       .update(careContracts)
       .set(values(b))
-      .where(eq(careContracts.id, id))
+      .where(scopedId(careContracts,id,actor))
       .returning();
     return x
       ? Response.json({ contract: x })
@@ -154,3 +153,7 @@ export async function PATCH(req: Request) {
     );
   }
 }
+
+export const GET=(req:Request)=>withActor(req,async(actor)=>{await workflowGuard(req,actor);return handleGET(req,actor);});
+export const POST=(req:Request)=>withActor(req,async(actor)=>{await workflowGuard(req,actor);return handlePOST(req,actor);});
+export const PATCH=(req:Request)=>withActor(req,async(actor)=>{await workflowGuard(req,actor);return handlePATCH(req,actor);});

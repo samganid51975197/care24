@@ -1,3 +1,4 @@
+import {withActor,scope,scopedId,ownership,workflowGuard,type Actor} from "../../../lib/auth";
 import { and, asc, desc, eq } from "drizzle-orm";
 import { getDb } from "../../../db";
 import { applications, careRequests } from "../../../db/schema";
@@ -5,12 +6,12 @@ import { applications, careRequests } from "../../../db/schema";
 const maskName = (name: string) => name.length < 2 ? "비공개" : `${name[0]}${"○".repeat(Math.max(1, name.length - 1))}`;
 const contractNumber = (id: number, createdAt: string) => `CR-${createdAt.slice(0, 10).replaceAll("-", "")}-${String(id).padStart(5, "0")}`;
 
-export async function GET() {
+async function handleGET(req:Request, actor:Actor) {
   try {
     const db = getDb();
     const [allRequests, profiles] = await Promise.all([
-      db.select().from(careRequests).orderBy(asc(careRequests.id)).limit(1000),
-      db.select({ id: applications.id, applicantName: applications.applicantName, applicantGender: applications.applicantGender, careerYears: applications.careerYears, qualification: applications.qualification, preferredDate: applications.preferredDate, status: applications.status }).from(applications).orderBy(desc(applications.id)).limit(100),
+      db.select().from(careRequests).where(scope(careRequests,actor)).orderBy(asc(careRequests.id)).limit(1000),
+      db.select({ id: applications.id, applicantName: applications.applicantName, applicantGender: applications.applicantGender, careerYears: applications.careerYears, qualification: applications.qualification, preferredDate: applications.preferredDate, status: applications.status }).from(applications).where(scope(applications,actor)).orderBy(desc(applications.id)).limit(100),
     ]);
     const now = new Date(), dayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime(), day = 86400000;
     const starts: Record<string, number> = { day: dayStart, week: dayStart - 6 * day, month: new Date(now.getFullYear(), now.getMonth(), 1).getTime(), year: new Date(now.getFullYear(), 0, 1).getTime() };
@@ -55,7 +56,7 @@ export async function GET() {
   }
 }
 
-export async function POST(req: Request) {
+async function handlePOST(req:Request, actor:Actor) {
   try {
     const body = await req.json() as Record<string, unknown>;
     const required = ["requesterName", "requesterPhone", "patientName", "patientGender", "patientAge", "patientWeight", "diagnosis", "patientCondition", "building", "floorName", "ward", "careType", "startDate", "serviceSchedule", "careFee", "feePeriod", "paymentMethod", "paymentDue", "serviceScope", "cancellationTerms", "requesterSignature"];
@@ -73,22 +74,22 @@ export async function POST(req: Request) {
   }
 }
 
-export async function PATCH(req: Request) {
+async function handlePATCH(req:Request, actor:Actor) {
   try {
     const body = await req.json() as Record<string, unknown>, id = Number(body.id), action = String(body.action || "");
     if (!id) return Response.json({ error: "의뢰번호를 확인해 주세요." }, { status: 400 });
     const db = getDb();
     if (action === "apply") {
       const caregiverId = Number(body.caregiverId);
-      const [profile] = await db.select().from(applications).where(eq(applications.id, caregiverId)).limit(1);
+      const [profile] = await db.select().from(applications).where(scopedId(applications,caregiverId,actor)).limit(1);
       if (!profile) return Response.json({ error: "저장된 간병인 프로필을 선택해 주세요." }, { status: 400 });
       const summary = [profile.applicantGender, `경력 ${profile.careerYears}`, profile.qualification].filter(Boolean).join(" · ");
-      const [request] = await db.update(careRequests).set({ status: "matched", caregiverId, caregiverName: profile.applicantName, caregiverProfile: summary, matchedAt: new Date().toISOString() }).where(and(eq(careRequests.id, id), eq(careRequests.status, "requesting"))).returning();
+      const [request] = await db.update(careRequests).set({ status: "matched", caregiverId, caregiverName: profile.applicantName, caregiverProfile: summary, matchedAt: new Date().toISOString() }).where(and(scopedId(careRequests,id,actor), eq(careRequests.status, "requesting"))).returning();
       if (!request) return Response.json({ error: "이미 다른 간병인과 매칭이 완료된 의뢰입니다." }, { status: 409 });
       return Response.json({ request, contract: { number: contractNumber(request.id, request.createdAt), status: "매칭완료" } });
     }
     if (action === "complete") {
-      const [request] = await db.update(careRequests).set({ status: "matched", matchedAt: new Date().toISOString() }).where(eq(careRequests.id, id)).returning();
+      const [request] = await db.update(careRequests).set({ status: "matched", matchedAt: new Date().toISOString() }).where(scopedId(careRequests,id,actor)).returning();
       return Response.json({ request });
     }
     return Response.json({ error: "처리 방법을 확인해 주세요." }, { status: 400 });
@@ -96,3 +97,7 @@ export async function PATCH(req: Request) {
     return Response.json({ error: "매칭 상태를 변경하지 못했습니다." }, { status: 500 });
   }
 }
+
+export const GET=(req:Request)=>withActor(req,async(actor)=>{await workflowGuard(req,actor);return handleGET(req,actor);});
+export const POST=(req:Request)=>withActor(req,async(actor)=>{await workflowGuard(req,actor);return handlePOST(req,actor);});
+export const PATCH=(req:Request)=>withActor(req,async(actor)=>{await workflowGuard(req,actor);return handlePATCH(req,actor);});
