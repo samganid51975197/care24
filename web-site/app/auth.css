@@ -2,6 +2,20 @@
 .privacy-page{max-width:900px;padding:32px 20px;margin:auto;font-size:1rem;line-height:1.8;color:#173e43}.privacy-page h1{font-size:2rem;font-weight:700;margin:24px 0}.privacy-page h2{font-size:1.25rem;font-weight:700;margin:26px 0 12px}.privacy-page p{margin:12px 0}.privacy-page table{width:100%;border-collapse:collapse}.privacy-page th,.privacy-page td{padding:12px;text-align:left;border:1px solid #c6dddc;vertical-align:top}.privacy-page ul{list-style:disc;padding-left:24px}.privacy-page a,.privacy-footer a{color:#075f68;text-decoration:underline}.privacy-footer{text-align:center;padding:24px;background:#edf6f5}.policy-draft{padding:18px;border:1px solid #dba547;border-radius:10px;background:#fff8e8;color:#654709}
 
 /* Keep the hospital header visible above the fixed home panel. */
-.account-bar{height:68px;min-height:68px;flex-wrap:nowrap}
+.account-bar{box-sizing:border-box;height:68px;min-height:68px;flex-wrap:nowrap;padding:10px 24px;background:#f7faf9;border-bottom:1px solid #dce7e3;color:#29463e;gap:16px}
+.account-identity{display:flex;align-items:center;gap:10px;min-width:0}
+.account-role{flex-shrink:0;background:#e6f1eb;color:#346650;border:1px solid #d0e3d8;border-radius:6px;padding:4px 8px;font-size:12px;font-weight:600;line-height:18px;white-space:nowrap}
+.account-name{font-size:15px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.account-honorific{font-weight:400;color:#718279}
+.account-bar nav{flex-shrink:0;gap:8px;flex-wrap:nowrap}
+.account-bar .account-link{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 12px;border-radius:8px;color:#52645d;text-decoration:none;font-size:14px;font-weight:500;white-space:nowrap}
+.account-bar .account-link[aria-current=page]{background:#eaf1ed;color:#255440;font-weight:600}
+.account-bar .account-link:hover{background:#e2ece6;color:#244d3a}
+.account-bar .account-logout{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;padding:0 12px;border:1px solid #cedbd3;border-radius:8px;background:#fff;color:#506259;font-size:13px;font-weight:500;white-space:nowrap}
+.account-bar .account-logout:hover{background:#edf3ef;border-color:#94ac9d;color:#254934}
+.account-bar a:focus-visible,.account-bar button:focus-visible{outline:3px solid #5b9b81;outline-offset:2px}
+.account-short-label{display:none}
+@media(max-width:620px){.account-bar{padding:8px 12px;gap:8px}.account-identity{flex-direction:column;align-items:flex-start;gap:2px}.account-role{font-size:10px;line-height:14px;padding:1px 5px}.account-name{font-size:13px;max-width:110px}.account-bar nav{gap:3px}.account-bar .account-link{font-size:12px;padding:0 7px}.account-wide-label{display:none}.account-short-label{display:inline}.account-bar .account-logout{font-size:12px;padding:0 8px;gap:4px}}
+@media(max-width:360px){.account-bar{padding:8px;gap:4px}.account-name{max-width:76px}.account-bar .account-link{padding:0 5px}.account-bar .account-logout svg{display:none}.account-bar .account-logout{padding:0 6px}}
 main>.topbar{height:78px;z-index:20}
 main>.home-screen{top:146px}
