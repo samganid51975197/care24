@@ -32,6 +32,8 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import LiveMatching from "./live-matching";
+import Contribution from "./contribution";
+import CaregiverGuide from "./caregiver-guide";
 import BoardModal from "./board-modal";
 type Row = {
   id: number;
@@ -111,6 +113,7 @@ function Title({
   );
 }
 export default function Home() {
+  const [completionNotice,setCompletionNotice]=useState("");
   const [tab, setTab] = useState("forms"),
     [rows, setRows] = useState<Row[]>([]),
     [railOpen, setRailOpen] = useState(false),
@@ -221,6 +224,8 @@ export default function Home() {
       else window.scrollTo({ top: 0, behavior: "smooth" });
     }, 50);
   }
+  function finishDocument(action?:string){load();if(action==='send'||action==='complete'){setCompletionNotice(action==='send'?'서류 전송이 완료되었습니다. 접수함에서 확인할 수 있습니다.':'서류 처리가 완료되었습니다.');goHome();}}
+  function closeDocument(){setCompletionNotice('서류 작성 화면을 닫았습니다. 저장·전송한 자료는 유지됩니다.');goHome();}
   function openCareRequest() {
     setMenuCard("");
     setRailOpen(false);
@@ -239,10 +244,10 @@ export default function Home() {
     <main>
       <header className="topbar">
         <div className="brand">
-          <a className="brand-home-link" href="https://care24-hospital-hub.samganid5197259555.chatgpt.site" aria-label="전국 병원 통합돌봄 앱으로 이동" title="아이콘(간병24)에 마우스를 대면 전국에 있는 해당 병원의 통합돌봄 앱이 나옵니다."><img className="brandmark" src="/ganbyeong24-logo-cropped.webp" alt="간병24" /><span className="brand-tooltip">아이콘(<img className="inline-care24-icon" src="/ganbyeong24-logo-cropped.webp" alt="간병24 아이콘" />)에 마우스를 대면 전국에 있는 해당 병원의 통합돌봄 앱이 나옵니다.</span></a>
+          <a className="brand-home-link" href="https://care24-hospital-hub.samganid5197259555.chatgpt.site" aria-label="전국 병원 통합돌봄 앱으로 이동" title="아이콘(간병24)을 클릭하면 전국병원 사이트가 열립니다."><img className="brandmark" src="/ganbyeong24-logo-cropped.webp" alt="간병24 로고" /><span className="brand-tooltip">아이콘(<img className="inline-care24-icon" src="/ganbyeong24-logo-cropped.webp" alt="간병24 아이콘" />)을 클릭하면 전국병원 사이트가 열립니다.</span></a>
           <div className="brandcopy">
             <strong><em className="region-label">분당</em>서울대학교병원 통합간병 앱</strong>
-            <span>대한노인돌봄서비스협회 통합관리</span>
+            <span>대한노인돌봄서비스협회 관리</span>
           </div>
         </div>
         <div className="secure">
@@ -267,14 +272,15 @@ export default function Home() {
         </div>
       </nav>
       {homeOpen && <section className="home-screen" aria-label="통합간병 업무 홈">
-        <div className="home-screen-inner">
+        <div className="home-screen-inner">{completionNotice&&<div className="document-completion" role="status"><span>{completionNotice}</span><Button type="button" variant="outline" onClick={()=>setCompletionNotice("")}>확인</Button></div>}
           {homeStep === "buildings" ? <>
-            <div className="legacy-home-title"><p>분당서울대학교병원 통합간병 앱</p><h1>입원 병동을 선택하세요</h1><span>동을 누르면 층별 병동이 표시됩니다.</span><b className="logo-navigation-guide">아이콘(<img className="inline-care24-icon" src="/ganbyeong24-logo-cropped.webp" alt="간병24 아이콘" />)에 마우스를 대면 전국에 있는 해당 병원의 통합돌봄 앱이 나옵니다.</b></div>
+            <div className="legacy-home-title"><p>분당서울대학교병원 통합간병 앱</p><h1>입원 병동을 선택하세요</h1><span>동을 누르면 층별 병동이 표시됩니다.</span><b className="logo-navigation-guide">아이콘(<img className="inline-care24-icon" src="/ganbyeong24-logo-cropped.webp" alt="간병24 아이콘" />)을 클릭하면 전국병원 사이트가 열립니다.</b></div>
             <div className="legacy-cloud"><ShieldCheck /><div><b>병원 클라우드와 분리 운영</b><p>이 사이트는 분당서울대학교병원 전산·EMR·클라우드와 연결되지 않은 별도 관리 서비스입니다. 대한노인돌봄서비스협회가 관리하며, 실제 연동은 병원 승인 후에만 가능합니다.</p></div><span>외부 독립 운영</span></div>
             <div className="legacy-buildings">
               {Object.keys(hospitalWards).map((building, index) => <button type="button" key={building} onClick={() => { setSelectedBuilding(building); setHomeStep("wards"); }}><div className={index === 0 ? "teal" : "navy"}><Building2 /><strong>{building}</strong></div><section><h2>{building} 입원병동</h2><p>{hospitalWards[building].length}개 층별 병동 안내</p><b>층별 병동 보기 <ChevronRight /></b></section></button>)}
             </div>
-            <div className="legacy-home-actions"><Button type="button" onClick={openCareRequest}>환자·보호자 간병 의뢰</Button><Button type="button" className="caregiver" onClick={() => moveTo("forms", "care-request")}>간병인 간병 신청</Button></div>
+            <section className="care-entry-actions" aria-label="간병 의뢰와 간병인 신청"><div className="patient-entry"><h2>환자·보호자용</h2><p>편한 의뢰 방법을 선택하세요.</p><div className="patient-entry-buttons"><Button type="button" onClick={openCareRequest}><HeartHandshake aria-hidden="true"/><strong>간병 의뢰</strong><small>의뢰서 작성</small></Button><a href="tel:16005197" aria-label="전화 의뢰, 전국 대표번호 1600-5197"><Phone aria-hidden="true"/><span className="phone-line"><strong>전화 의뢰</strong><small>는</small></span><strong className="phone-number">1600-5197</strong><span className="phone-line"><b>전국 대표전화</b><small>로 연락하세요.</small></span></a></div></div><div className="caregiver-entry"><h2>간병인용</h2><p>간병 일을 신청하세요.</p><CaregiverGuide onRegister={() => moveTo("forms", "care-request")} onRequests={() => {window.setTimeout(()=>document.getElementById("live-matching")?.scrollIntoView({behavior:"smooth",block:"start"}),100)}}/></div></section>
+            <Contribution />
             <LiveMatching requestSequence={careRequestSequence} />
           </> : <div className="legacy-wards">
             <button type="button" className="legacy-back" onClick={() => setHomeStep("buildings")}><ArrowLeft />1동·2동 선택으로</button>
@@ -314,7 +320,7 @@ export default function Home() {
             </TabsList>
           </div>
           <TabsContent value="forms">
-            <div id="care-request" className="rail-anchor"><ApplicationForm onDone={load} /></div>
+            <div id="care-request" className="rail-anchor"><ApplicationForm onDone={finishDocument} onClose={closeDocument} /></div>
             <div className="document-divider">
               <Camera />
               <div>
@@ -322,7 +328,7 @@ export default function Home() {
                 <span>휴대폰으로 촬영하거나 사진·동영상·PDF를 첨부합니다.</span>
               </div>
             </div>
-            <DocumentForm onDone={load} />
+            <DocumentForm onDone={finishDocument} onClose={closeDocument} />
             <div className="document-divider">
               <FileText />
               <div>
@@ -330,7 +336,7 @@ export default function Home() {
                 <span>간병비를 직접 입력하고 계약 당사자가 서명합니다.</span>
               </div>
             </div>
-            <CareContractForm type="개인간병 근로계약서" onDone={load} />
+            <CareContractForm type="개인간병 근로계약서" onDone={finishDocument} onClose={closeDocument} />
             <div className="document-divider">
               <FileText />
               <div>
@@ -338,7 +344,7 @@ export default function Home() {
                 <span>전일제·2교대·3교대 간병비를 각각 입력합니다.</span>
               </div>
             </div>
-            <CareContractForm type="공동간병 계약서" onDone={load} />
+            <CareContractForm type="공동간병 계약서" onDone={finishDocument} onClose={closeDocument} />
             <div className="document-divider">
               <ShieldCheck />
               <div>
@@ -346,7 +352,7 @@ export default function Home() {
                 <span>전자서명 후 협회·간병24에 전송합니다.</span>
               </div>
             </div>
-            <ConsentForm onDone={load} />
+            <ConsentForm onDone={finishDocument} onClose={closeDocument} />
           </TabsContent>
           <TabsContent value="inbox">
             <section className="card inbox">
@@ -445,7 +451,7 @@ export default function Home() {
     </main>
   );
 }
-function ApplicationForm({ onDone }: { onDone: () => void }) {
+function ApplicationForm({ onDone,onClose }: { onDone: (action?:string) => void;onClose:()=>void }) {
   const [id, setId] = useState<number | null>(null),
     [busy, setBusy] = useState(false),
     [msg, setMsg] = useState("");
@@ -474,7 +480,7 @@ function ApplicationForm({ onDone }: { onDone: () => void }) {
           ? `협회·간병24 전송 완료 · 신청번호 ${j.application.id}`
           : `신청서 저장 완료 · 신청번호 ${j.application.id}`,
       );
-      onDone();
+      onDone(action);
       if (action === "send") {
         f.reset();
         setId(null);
@@ -529,6 +535,7 @@ function ApplicationForm({ onDone }: { onDone: () => void }) {
         </div>
         <HandwritingPad />
         <div className="mini-actions">
+          <Button type="button" variant="outline" onClick={onClose} disabled={busy}>작성 닫기</Button>
           <Button type="submit" value="save" variant="outline" disabled={busy}>
             <Save />
             신청서 저장
@@ -575,7 +582,7 @@ const documentTypes = [
     officerOnly: true,
   },
 ];
-function DocumentForm({ onDone }: { onDone: () => void }) {
+function DocumentForm({ onDone,onClose }: { onDone: (action?:string) => void;onClose:()=>void }) {
   const [id, setId] = useState<number | null>(null),
     [busy, setBusy] = useState(false),
     [msg, setMsg] = useState("");
@@ -605,7 +612,7 @@ function DocumentForm({ onDone }: { onDone: () => void }) {
             ? `협회·간병24 전송 완료 · 서류번호 ${j.bundle.id}`
             : `제출서류 저장 완료 · 서류번호 ${j.bundle.id}`,
       );
-      onDone();
+      onDone(action);
       if (action === "confirm") {
         f.reset();
         setId(null);
@@ -966,6 +973,7 @@ function DocumentForm({ onDone }: { onDone: () => void }) {
           </div>
         </div>
         <div className="mini-actions document-actions">
+          <Button type="button" variant="outline" onClick={onClose} disabled={busy}>작성 닫기</Button>
           <Button type="submit" value="save" variant="outline" disabled={busy}>
             <Save />
             서류 저장
@@ -996,9 +1004,11 @@ function DocumentForm({ onDone }: { onDone: () => void }) {
 function CareContractForm({
   type,
   onDone,
+  onClose,
 }: {
   type: "개인간병 근로계약서" | "공동간병 계약서";
-  onDone: () => void;
+  onDone: (action?:string) => void;
+  onClose:()=>void;
 }) {
   const [id, setId] = useState<number | null>(null),
     [busy, setBusy] = useState(false),
@@ -1034,7 +1044,7 @@ function CareContractForm({
               ? `간호사실·협회·간병24 전송 완료 · 계약번호 ${j.contract.id}`
               : `${type} 저장 완료 · 계약번호 ${j.contract.id}`,
       );
-      onDone();
+      onDone(action);
       if (action === "complete") {
         f.reset();
         setId(null);
@@ -1060,12 +1070,14 @@ function CareContractForm({
               : "개인간병 근로조건과 협의한 간병비를 약정합니다."
           }
         />
-        <div className="recipient-strip three">
+        <div className={`recipient-strip ${shared?"three":"four"}`}>
           <b>수신처</b>
           <span>간호사실</span>
           <span>협회</span>
           <span>간병24</span>
+          {!shared&&<span>간병인</span>}
         </div>
+        {!shared&&<aside className="contract-caregiver-delivery"><h3>간병인에게 계약서 전달</h3><p>협회·간병24 관리자가 작성한 계약서를 아래 ‘간병인 연락처’의 휴대전화번호로 전달합니다.</p><p><strong>문자·카카오톡 발송 서비스 연결 대기</strong><br/>현재 ‘보내기’는 앱 내부 접수입니다. 간병인에게 문자나 카카오톡이 발송되지는 않습니다.</p><div className="workflow-actions"><Button type="button" disabled>문자로 보내기 · 연결 필요</Button><Button type="button" disabled>카카오톡으로 보내기 · 연결 필요</Button></div><small>발신번호 등록이 필요하며, 카카오톡 자동 발송에는 채널과 승인된 알림톡 양식이 필요합니다. 관리자의 작성은 간병인 본인의 서명을 대신하지 않습니다.</small></aside>}
         <h3 className="contract-subtitle">1. 계약 당사자</h3>
         <div className="grid-2">
           <Field label="사용자·보호자 성명" name="employerName" />
@@ -1153,6 +1165,7 @@ function CareContractForm({
         </div>
         <HandwritingPad />
         <div className="mini-actions consent-actions">
+          <Button type="button" variant="outline" onClick={onClose} disabled={busy}>작성 닫기</Button>
           <Button type="submit" value="save" variant="outline" disabled={busy}>
             <Save />
             저장
@@ -1207,7 +1220,7 @@ function MoneyField({ label, name }: { label: string; name: string }) {
   );
 }
 function ItemCount({n,label,name}:{n:string;label:string;name:string}){return <div className="item-count"><b>{n}</b><Label htmlFor={name}>{label}</Label><Input id={name} name={name} type="number" min="0" defaultValue="0" required/><span>개</span></div>}
-function ConsentForm({ onDone }: { onDone: () => void }) {
+function ConsentForm({ onDone,onClose }: { onDone: (action?:string) => void;onClose:()=>void }) {
   const [id, setId] = useState<number | null>(null),
     [busy, setBusy] = useState(false),
     [msg, setMsg] = useState("");
@@ -1241,7 +1254,7 @@ function ConsentForm({ onDone }: { onDone: () => void }) {
               ? `협회·간병24 전송 완료 · 확인서번호 ${j.consent.id}`
               : `개인정보 확인서 저장 완료 · 확인서번호 ${j.consent.id}`,
       );
-      onDone();
+      onDone(action);
       if (action === "complete") {
         f.reset();
         setId(null);
@@ -1334,6 +1347,7 @@ function ConsentForm({ onDone }: { onDone: () => void }) {
         </div>
         <HandwritingPad />
         <div className="mini-actions consent-actions">
+          <Button type="button" variant="outline" onClick={onClose} disabled={busy}>작성 닫기</Button>
           <Button type="submit" value="save" variant="outline" disabled={busy}>
             <Save />
             저장

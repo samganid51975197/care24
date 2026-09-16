@@ -1,29 +1,22 @@
-# 간병24 1.1.4
+# 간병24 1.1.5
 
-분당서울대학교병원 간병 업무를 위한 안드로이드 앱과 웹사이트 소스입니다.
+1.1.4 이후 수정 내용을 포함한 웹·안드로이드 소스입니다.
 
-## 1.1.4 변경사항
+- Android: 1.1.5 (versionCode 15), SDK 36
+- 웹: web-site/package.json 1.1.5
+- 변경 내역: [CHANGELOG.md](CHANGELOG.md)
+- [개발용 APK](releases/care_24_1.1.5-debug.apk): 로컬 서버 3100과 USB 연결 필요
+- [서명된 APK](releases/care_24_1.1.5-release.apk): 간병24.com 운영 서버에 연결
+- [Play 업로드용 AAB](releases/care_24_1.1.5-release.aab)
 
-- Android 앱 버전: **1.1.4** (`versionCode 13`)
-- **간병인 의뢰**를 누르면 **환자·보호자용 간병 의뢰서**가 열리고 제목과 입력란으로 바로 이동합니다.
-- 다른 업무 화면에서 의뢰서로 돌아올 때도 정상적으로 열리도록 화면 연결을 수정했습니다.
+문자·카카오톡 발송 연결, 운영 웹 배포 및 Play 출시는 완료된 것으로 간주하지 않습니다. APK에는 웹 수정본이 내장되지 않으므로 운영 사용에는 web-site 배포가 필요합니다.
 
-## 설치 및 실행
+개인키·비밀번호·운영 데이터베이스는 소스 및 배포 압축 파일에 포함하지 않습니다.
 
-- [간병24 1.1.4 APK 다운로드](releases/care24-v1.1.4.apk)
-- [간병24 웹사이트 열기](https://ganbyeong24-bundang-snuh.samganid5197259555.chatgpt.site)
+## 개발 서버 설정
 
-APK는 테스트용 debug 빌드입니다. 설치된 앱은 스마트폰의 기본 브라우저에서 위 웹사이트를 엽니다.
+로컬 실행 전 web-site/.env.local에 CARE24_ORIGIN=http://127.0.0.1:3100 및 CARE24_DATABASE_URL=file:.private/preview.db를 설정하세요. CARE24_UPLOAD_DIR은 비공개 첨부 폴더, CARE24_KEY_FILE은 기존 암호화 키 파일을 가리켜야 합니다. 키를 새로 덮어쓰면 기존 자료를 읽을 수 없습니다. 환경 파일과 DB는 Git에 올리지 않습니다.
 
-## 소스 구성
+관리자 비밀번호 복구용 scripts/reset-local-admin.ps1은 이 개발 PC의 기존 관리자 계정 전용 도구이며, 실행자가 새 비밀번호를 직접 입력합니다. 비밀번호 자체는 포함되어 있지 않습니다.
 
-| 경로 | 내용 |
-| --- | --- |
-| `android-project/` | Android Studio 프로젝트 |
-| `web-site/` | 환자·보호자 의뢰서 및 간병 업무 웹사이트 |
-| `releases/care24-v1.1.4.apk` | 스마트폰 설치 파일 |
-| `CHANGELOG.md` | 변경 및 확인 내역 |
-
-Android Studio에서 `android-project`를 열어 로컬 Android SDK 경로를 설정합니다. JDK 17 이상과 Android SDK 35가 필요하며, `gradlew.bat assembleDebug`로 APK를 생성할 수 있습니다. 자세한 내용은 [안드로이드 프로젝트 안내](android-project/README.md)를 참고하세요.
-
-웹사이트의 의존성 버전은 `web-site/package-lock.json`에 고정되어 있습니다. 웹사이트는 Cloudflare Workers의 D1 및 R2를 사용하며, 기존 빌드 스크립트는 Bash 환경을 기준으로 합니다. 로컬 실행에는 별도의 데이터베이스 준비가 필요합니다.
+검증: TypeScript 검사 및 기능·암호화 테스트 16개 통과.

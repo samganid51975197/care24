@@ -1,6 +1,6 @@
 # 간병24 TWA
 
-앱 ID `kr.or.care24.app`, 표시 버전 1.1.4, versionCode 14. compileSdk/targetSdk 36.
+앱 ID `kr.or.care24.app`, 표시 버전 1.1.5, versionCode 15. compileSdk/targetSdk 36.
 Google Android Browser Helper의 LauncherActivity로 기존 PWA를 실행합니다. 기존 assets/www 양식은 APK에서 제외하며 웹 서버의 로그인과 접근 제어를 그대로 사용합니다.
 
 ## 생성 결과와 키 보관

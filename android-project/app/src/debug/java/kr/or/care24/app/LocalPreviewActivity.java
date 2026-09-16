@@ -17,9 +17,6 @@ public class LocalPreviewActivity extends androidx.activity.ComponentActivity {
         super.onCreate(state);
         LinearLayout layout = new LinearLayout(this);
         layout.setOrientation(LinearLayout.VERTICAL);
-        Button reload = new Button(this);
-        reload.setText("간병24 개발 · 새로고침");
-        layout.addView(reload);
         web = new WebView(this);
         layout.addView(web, new LinearLayout.LayoutParams(-1, 0, 1));
         setContentView(layout);
@@ -41,6 +38,14 @@ public class LocalPreviewActivity extends androidx.activity.ComponentActivity {
         web.setWebViewClient(new WebViewClient() {
             @Override public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                 Uri uri = request.getUrl();
+                if (request.isForMainFrame() && "https".equals(uri.getScheme()) &&
+                    "care24-hospital-hub.samganid5197259555.chatgpt.site".equals(uri.getHost())) {
+                    try { startActivity(new Intent(Intent.ACTION_VIEW, uri)); }
+                    catch (android.content.ActivityNotFoundException ex) {
+                        Toast.makeText(LocalPreviewActivity.this, "전국병원 화면을 열 브라우저가 필요합니다.", Toast.LENGTH_LONG).show();
+                    }
+                    return true;
+                }
                 return !("http".equals(uri.getScheme()) && "127.0.0.1".equals(uri.getHost()) && uri.getPort() == 3100);
             }
             @Override public void onPageFinished(WebView view, String url) {
@@ -60,7 +65,7 @@ public class LocalPreviewActivity extends androidx.activity.ComponentActivity {
                 return true;
             }
         });
-        reload.setOnClickListener(v -> web.reload());
+
         web.loadUrl(URL);
     }
     @Override protected void onActivityResult(int request, int result, Intent data) {
