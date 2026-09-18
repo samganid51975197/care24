@@ -1,8 +1,9 @@
-export const requestFields='requesterName requesterPhone patientName patientGender patientAge patientWeight diagnosis patientCondition building floorName ward room careType startDate precautions specialNotes requestNote desiredGender desiredNationality desiredAge desiredExpertise desiredPersonality desiredOther publicConsent'.split(' ');
+export const requestFields='requesterName requesterPhone patientName patientGender patientAge patientBirthYear patientWeight diagnosis patientCondition building floorName ward room careType startDate precautions specialNotes requestNote desiredGender desiredNationality desiredAge desiredExpertise desiredPersonality desiredOther publicConsent'.split(' ');
 export const canEditRequest=(actor,row)=>actor.role==='admin'||(row.ownerUserId!=null&&row.ownerUserId===actor.id);
 export function editableRequest(row){return Object.fromEntries(requestFields.map(k=>[k,row[k]??'']))}
 export function requestChanges(body){
  const result=editableRequest(body);for(const k of requestFields)result[k]=String(result[k]).trim();
+ if(result.patientBirthYear&&(!/^\d{4}$/.test(result.patientBirthYear)||Number(result.patientBirthYear)>new Date().getFullYear()||Number(result.patientBirthYear)<new Date().getFullYear()-120))throw Error('출생연도를 확인하세요.');
  const required='requesterName requesterPhone patientName patientGender patientAge patientWeight diagnosis patientCondition building floorName ward careType startDate'.split(' ');
  if(required.some(k=>!result[k]))throw Error('필수 의뢰 항목을 모두 작성해 주세요.');
  if(result.publicConsent!=='동의')throw Error('수정 내용의 공개 동의를 확인해 주세요.');

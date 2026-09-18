@@ -137,3 +137,10 @@
 
 
 .recipient-strip.four{display:flex;flex-wrap:wrap;gap:8px}.contract-caregiver-delivery{padding:16px;margin:16px 0;background:#f0f7f4;border:1px solid #adc9bb;border-radius:12px}.contract-caregiver-delivery h3{font-size:18px;font-weight:800;color:#155238}.contract-caregiver-delivery p{line-height:1.6;margin:10px 0}.contract-caregiver-delivery small{display:block;margin-top:12px;line-height:1.6;color:#52635d}
+.workflow-panel{scroll-margin-top:160px}
+.workflow-selection{display:flex;flex-direction:column;gap:4px;padding:14px 16px;margin-bottom:16px;background:#eaf5ee;border:1px solid #b9d8c6;border-radius:10px;color:#185438}
+.workflow-selection b{font-size:18px}.workflow-selection span{font-size:14px}
+.workflow-panel.workflow-receipt{max-width:680px;margin:24px auto;padding:32px 24px;text-align:center;background:#f6fbf8;border:1px solid #b9d8c6;border-radius:16px}
+.workflow-receipt .workflow-receipt-check{display:inline-flex;align-items:center;justify-content:center;width:52px;height:52px;border-radius:50%;background:#16704a;color:white;font-size:30px}
+.workflow-receipt .workflow-request-number{font-size:17px;font-weight:700;color:#16704a;margin:16px 0 8px}.workflow-receipt h3{font-size:24px;font-weight:800}.workflow-receipt p{line-height:1.7;margin:12px 0}.workflow-receipt .workflow-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:24px 0 16px}.workflow-receipt button{min-height:44px}.workflow-receipt small{color:#52675b}
+.applicant-birth{border:0;padding:0;min-width:0}.applicant-birth legend{font-size:14px;font-weight:500;margin-bottom:8px}.birth-selects{display:grid;grid-template-columns:1.35fr 1fr 1fr;gap:8px}.birth-selects select,.applicant-gender-select{width:100%;min-width:0;min-height:44px;border:1px solid #cbd5d1;border-radius:8px;padding:8px;background:white;color:#243d32;font-size:16px}.birth-selects select:focus-visible,.applicant-gender-select:focus-visible{outline:2px solid #16704a;outline-offset:2px}

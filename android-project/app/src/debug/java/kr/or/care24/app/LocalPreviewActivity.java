@@ -8,11 +8,11 @@ import android.util.Log;
 import android.webkit.*;
 import android.widget.*;
 
-/** USB-only local preview. This class is excluded from release builds. */
+/** Android Studio preview of the deployed HTTPS app. This class is excluded from release builds. */
 public class LocalPreviewActivity extends androidx.activity.ComponentActivity {
     private WebView web;
     private ValueCallback<Uri[]> pendingFiles;
-    private static final String URL = "http://127.0.0.1:3100/";
+    private static final String URL = "https://xn--24-ts1i486c.com/";
     @Override public void onCreate(Bundle state) {
         super.onCreate(state);
         LinearLayout layout = new LinearLayout(this);
@@ -46,14 +46,14 @@ public class LocalPreviewActivity extends androidx.activity.ComponentActivity {
                     }
                     return true;
                 }
-                return !("http".equals(uri.getScheme()) && "127.0.0.1".equals(uri.getHost()) && uri.getPort() == 3100);
+                return !("https".equals(uri.getScheme()) && "xn--24-ts1i486c.com".equals(uri.getHost()) && (uri.getPort() == -1 || uri.getPort() == 443));
             }
             @Override public void onPageFinished(WebView view, String url) {
                 Log.i("Care24Preview", "Page loaded: " + Uri.parse(url).getPath());
             }
             @Override public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
                 if (request.isForMainFrame()) Toast.makeText(LocalPreviewActivity.this,
-                    "PC 개발 서버와 USB 연결을 확인한 뒤 새로고침해 주세요.", Toast.LENGTH_LONG).show();
+                    "인터넷 연결을 확인한 뒤 다시 실행해 주세요.", Toast.LENGTH_LONG).show();
             }
         });
         web.setWebChromeClient(new WebChromeClient() {

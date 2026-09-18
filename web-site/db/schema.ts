@@ -50,6 +50,7 @@ export const careRequests = sqliteTable("care_requests", {
   requesterPhone: encryptedText("requester_phone","care_requests.requester_phone").notNull(),
   patientName: encryptedText("patient_name","care_requests.patient_name").notNull(),
   patientGender: encryptedText("patient_gender","care_requests.patient_gender").notNull().default(""),
+  patientBirthYear: encryptedText("patient_birth_year","care_requests.patient_birth_year").notNull().default(""),
   patientAge: encryptedText("patient_age","care_requests.patient_age").notNull().default(""),
   patientWeight: encryptedText("patient_weight","care_requests.patient_weight").notNull().default(""),
   diagnosis: encryptedText("diagnosis","care_requests.diagnosis").notNull().default(""),

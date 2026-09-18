@@ -34,8 +34,8 @@ android {
             applicationIdSuffix '.dev'
             manifestPlaceholders.launcherActivity = '.LocalPreviewActivity'
             manifestPlaceholders.launcherTheme = '@style/Theme.Care24'
-            manifestPlaceholders.twaHost = '127.0.0.1'
-            manifestPlaceholders.twaUrl = 'http://127.0.0.1:3100/'
+            manifestPlaceholders.twaHost = 'xn--24-ts1i486c.com'
+            manifestPlaceholders.twaUrl = 'https://xn--24-ts1i486c.com/'
         }
         release {
             if (signingPath && signingPassword) signingConfig signingConfigs.production
@@ -57,7 +57,6 @@ dependencies {
 }
 
 tasks.configureEach { task ->
-    if (task.name == 'preDebugBuild') task.dependsOn 'connectLocalPreview'
     if (task.name == 'preReleaseBuild') {
         task.doFirst {
             if (!signingPath || !signingPassword) throw new GradleException('Release signing requires CARE24_ANDROID_KEYSTORE and CARE24_ANDROID_STORE_PASSWORD.')
@@ -65,7 +64,3 @@ tasks.configureEach { task ->
     }
 }
 
-tasks.register('connectLocalPreview', Exec) {
-    commandLine android.adbExecutable, 'reverse', 'tcp:3100', 'tcp:3100'
-    ignoreExitValue true
-}

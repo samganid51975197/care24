@@ -16,22 +16,28 @@ async function handleGET(req:Request, actor:Actor) {
     ]);
     const now = new Date(), dayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime(), day = 86400000;
     const starts: Record<string, number> = { day: dayStart, week: dayStart - 6 * day, month: new Date(now.getFullYear(), now.getMonth(), 1).getTime(), year: new Date(now.getFullYear(), 0, 1).getTime() };
-    const stats = Object.fromEntries(Object.entries(starts).map(([key, start]) => {
-      const rows = allRequests.filter((item) => new Date(item.createdAt.replace(" ", "T") + "Z").getTime() >= start);
-      return [key, { total: rows.length, matched: rows.filter((item) => item.status === "matched").length }];
-    }));
     await ensureWorkflow(getClient());
     const workflowRows=await getClient().execute('SELECT request_id,payload FROM care_workflows');
     const {decryptText}=await import('../../../lib/data-crypto.mjs');
+    const sentRequests=new Set(workflowRows.rows.filter(row=>{
+      const workflow=JSON.parse(decryptText(row.payload,'care_workflows.'+row.request_id));
+      return workflow.applications.some((application:any)=>application.status==='sent');
+    }).map(row=>Number(row.request_id)));
+    const boardStatus=(item:typeof allRequests[number])=>sentRequests.has(item.id)?'matched':item.status;
+    const stats = Object.fromEntries(Object.entries(starts).map(([key, start]) => {
+      const rows = allRequests.filter((item) => new Date(item.createdAt.replace(" ", "T") + "Z").getTime() >= start);
+      return [key, { total: rows.length, matched: rows.filter((item) => boardStatus(item) === "matched").length }];
+    }));
     const progress=workflowRows.rows.filter(row=>{
       if(actor.role==='admin'||allRequests.some(r=>r.id===Number(row.request_id)&&r.ownerUserId===actor.id))return true;
       const w=JSON.parse(decryptText(row.payload,'care_workflows.'+row.request_id));
       return w.applications.some((a:any)=>a.ownerId===actor.id);
     }).map(row=>({id:Number(row.request_id),status:'진행'}));
     return Response.json({progress,
-      requests: allRequests.filter((item) => item.status !== "matched").map((item) => ({
+      requests: allRequests.map((item) => ({
         id: item.id,
         contractNumber: contractNumber(item.id, item.createdAt),
+        canPrepareContract: actor.role==='admin'||item.ownerUserId===actor.id,
         building: item.building,
         floorName: item.floorName || "미입력",
         ward: item.ward,
@@ -49,7 +55,7 @@ async function handleGET(req:Request, actor:Actor) {
         desiredAge: item.desiredAge,
         desiredPersonality: item.desiredPersonality,
         desiredOther: item.desiredOther,
-        status: item.status,
+        status: boardStatus(item),
       })),
       profiles: profiles.map((profile) => ({
         id: profile.id,
@@ -72,10 +78,11 @@ async function handlePOST(req:Request, actor:Actor) {
     if (!required.every((key) => String(body[key] || "").trim())) return Response.json({ error: "필수 의뢰 항목을 모두 작성해 주세요." }, { status: 400 });
     if (String(body.publicConsent) !== "동의") return Response.json({ error: "민감정보 공개 동의가 필요합니다." }, { status: 400 });
 
+    if(body.patientBirthYear && (!/^\d{4}$/.test(String(body.patientBirthYear)) || Number(body.patientBirthYear)>new Date().getFullYear() || Number(body.patientBirthYear)<new Date().getFullYear()-120)) return Response.json({error:"출생연도를 확인하세요."},{status:400});
     const room = String(body.roomStatus) === "emergency_waiting" ? "응급실 대기 중 (병실 미배정·간병인 미지정)" : String(body.room || "");
     if (!room.trim()) return Response.json({ error: "병실을 입력하거나 응급실 대기 중을 선택해 주세요." }, { status: 400 });
     const [request] = await getDb().insert(careRequests).values({
-      ...ownership(actor), requesterName: String(body.requesterName), requesterPhone: String(body.requesterPhone), patientName: String(body.patientName), patientGender: String(body.patientGender), patientAge: String(body.patientAge), patientWeight: String(body.patientWeight), diagnosis: String(body.diagnosis), patientCondition: String(body.patientCondition), precautions: String(body.precautions || ""), specialNotes: String(body.specialNotes || ""), publicConsent: "동의", building: String(body.building), floorName: String(body.floorName), ward: String(body.ward), room, careType: String(body.careType), startDate: String(body.startDate), requestNote: String(body.requestNote || ""), serviceSchedule: String(body.serviceSchedule || ""), serviceStartTime: String(body.serviceStartTime || ""), serviceEndTime: String(body.serviceEndTime || ""), restTime: String(body.restTime || "상호 협의"), holidayTerms: String(body.holidayTerms || "상호 협의"), careFee: String(body.careFee || ""), feePeriod: String(body.feePeriod || ""), paymentMethod: String(body.paymentMethod || ""), paymentDue: String(body.paymentDue || ""), serviceScope: String(body.serviceScope || ""), cancellationTerms: String(body.cancellationTerms || ""), contractNote: String(body.contractNote || ""), requesterSignature: String(body.requesterSignature || ""), contractConsent: "미동의", contractVersion: "", contractSignedAt: "", desiredGender: String(body.desiredGender || "무관"), desiredNationality: String(body.desiredNationality || "무관"), desiredExpertise: String(body.desiredExpertise || "무관"), desiredAge: String(body.desiredAge || "무관"), desiredPersonality: String(body.desiredPersonality || "무관"), desiredOther: String(body.desiredOther || ""), status: "requesting",
+      ...ownership(actor), requesterName: String(body.requesterName), requesterPhone: String(body.requesterPhone), patientName: String(body.patientName), patientGender: String(body.patientGender), patientAge: String(body.patientAge), patientBirthYear: String(body.patientBirthYear || ""), patientWeight: String(body.patientWeight), diagnosis: String(body.diagnosis), patientCondition: String(body.patientCondition), precautions: String(body.precautions || ""), specialNotes: String(body.specialNotes || ""), publicConsent: "동의", building: String(body.building), floorName: String(body.floorName), ward: String(body.ward), room, careType: String(body.careType), startDate: String(body.startDate), requestNote: String(body.requestNote || ""), serviceSchedule: String(body.serviceSchedule || ""), serviceStartTime: String(body.serviceStartTime || ""), serviceEndTime: String(body.serviceEndTime || ""), restTime: String(body.restTime || "상호 협의"), holidayTerms: String(body.holidayTerms || "상호 협의"), careFee: String(body.careFee || ""), feePeriod: String(body.feePeriod || ""), paymentMethod: String(body.paymentMethod || ""), paymentDue: String(body.paymentDue || ""), serviceScope: String(body.serviceScope || ""), cancellationTerms: String(body.cancellationTerms || ""), contractNote: String(body.contractNote || ""), requesterSignature: String(body.requesterSignature || ""), contractConsent: "미동의", contractVersion: "", contractSignedAt: "", desiredGender: String(body.desiredGender || "무관"), desiredNationality: String(body.desiredNationality || "무관"), desiredExpertise: String(body.desiredExpertise || "무관"), desiredAge: String(body.desiredAge || "무관"), desiredPersonality: String(body.desiredPersonality || "무관"), desiredOther: String(body.desiredOther || ""), status: "requesting",
     }).returning();
     return Response.json({id:request.id, publicStatus:"공개 완료"}, { status: 201 });
   } catch {

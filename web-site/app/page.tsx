@@ -451,6 +451,13 @@ export default function Home() {
     </main>
   );
 }
+function ApplicantBirthSelect() {
+  const [year,setYear]=useState(''),[month,setMonth]=useState(''),[day,setDay]=useState('');
+  const thisYear=new Date().getFullYear();
+  const days=year&&month?new Date(Number(year),Number(month),0).getDate():31;
+  const value=year&&month&&day?`${year}-${month.padStart(2,'0')}-${day.padStart(2,'0')}`:'';
+  return <fieldset className="field applicant-birth"><legend>생년월일 <span>*</span></legend><div className="birth-selects"><select aria-label="출생연도" required value={year} onChange={e=>{setYear(e.target.value);setDay('')}}><option value="">년도 선택</option>{Array.from({length:121},(_,i)=>thisYear-i).map(y=><option key={y} value={y}>{y}년</option>)}</select><select aria-label="출생월" required value={month} onChange={e=>{setMonth(e.target.value);setDay('')}}><option value="">월 선택</option>{Array.from({length:12},(_,i)=>i+1).map(m=><option key={m} value={m}>{m}월</option>)}</select><select aria-label="출생일" required value={day} onChange={e=>setDay(e.target.value)}><option value="">일 선택</option>{Array.from({length:days},(_,i)=>i+1).map(d=><option key={d} value={d}>{d}일</option>)}</select></div><input type="hidden" name="applicantBirth" value={value}/></fieldset>;
+}
 function ApplicationForm({ onDone,onClose }: { onDone: (action?:string) => void;onClose:()=>void }) {
   const [id, setId] = useState<number | null>(null),
     [busy, setBusy] = useState(false),
@@ -512,12 +519,8 @@ function ApplicationForm({ onDone,onClose }: { onDone: (action?:string) => void;
             type="tel"
             placeholder="010-0000-0000"
           />
-          <Field label="생년월일" name="applicantBirth" type="date" />
-          <Field
-            label="성별"
-            name="applicantGender"
-            placeholder="예: 남 / 여"
-          />
+          <ApplicantBirthSelect />
+          <div className="field"><Label htmlFor="applicantGender">성별 <span>*</span></Label><select id="applicantGender" name="applicantGender" className="applicant-gender-select" required defaultValue=""><option value="" disabled>성별 선택</option><option value="남">남성</option><option value="여">여성</option></select></div>
           <Field label="간병 경력" name="careerYears" placeholder="예: 5년" />
           <Field
             label="자격·교육사항"
