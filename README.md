@@ -1,5 +1,16 @@
 # 간병24 1.1.5
 
+## 전국 병원 통합접수 운영 사이트
+
+최신 별도 운영 사이트 소스는 [hospital-hub](hospital-hub/)에 있습니다. 기존 `web-site`·`android-project`와는 별도 프로젝트입니다.
+
+- 운영 주소: https://care24-hospital-hub.samganid5197259555.chatgpt.site
+- 2026-09-21 반영: 간병인 의뢰 상단의 **재활치료(환자)** 연결, 16개 재활교육, **연하 재활치료(삼킴장애)** 상세 안내
+- 원본 Sites 소스 커밋: `d16b28d0f5df770d6ef60479415849c8c204ad85` (운영 버전 67)
+- 실행·검증 안내: [hospital-hub/README.md](hospital-hub/README.md)
+
+아래 1.1.5 안내는 기존 웹·안드로이드 프로젝트에 해당합니다.
+
 1.1.4 이후 수정 내용을 포함한 웹·안드로이드 소스입니다.
 
 - Android: 1.1.5 (versionCode 15), SDK 36
